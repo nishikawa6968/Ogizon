@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ogizon</title>
+
+<style>
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+
+    background: #f0f4f8; color: #1a202c; min-height: 100vh;
+
+  }
+
+  /* ヘッダー */
+
+  header {
+
+    background: #131921; color: white; padding: 0 20px;
+
+    display: flex; align-items: center; justify-content: space-between;
+
+    height: 54px; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+
+    position: sticky; top: 0; z-index: 200;
+
+  }
+
+  .logo { display: flex; flex-direction: column; line-height: 1; }
+
+  .logo-text {
+
+    font-size: 24px; font-weight: 900;
+
+    font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
+
+    color: white; letter-spacing: -1px;
+
+  }
+
+  /* ハンバーガー */
+
+  .hamburger {
+
+    background: none; border: none; cursor: pointer;
+
+    padding: 8px; border-radius: 6px; color: white;
+
+    display: flex; flex-direction: column; gap: 5px;
+
+    transition: background 0.15s;
+
+  }
+
+  .hamburger:hover { background: rgba(255,255,255,0.1); }
+
+  .hamburger span {
+
+    display: block; width: 22px; height: 2px;
+
+    background: white; border-radius: 2px;
+
+    transition: all 0.25s;
+
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ドロワー */
+
+  .drawer-overlay {
+
+    display: none; position: fixed; inset: 0;
+
+    background: rgba(0,0,0,0.4); z-index: 150;
+
+    backdrop-filter: blur(2px);
+
+  }
+
+  .drawer-overlay.open { display: block; }
+
+  .drawer {
+
+    position: fixed; top: 0; right: -320px; width: 300px; height: 100%;
+
+    background: #1a202c; z-index: 160; transition: right 0.28s cubic-bezier(0.4,0,0.2,1);
+
+    overflow-y: auto; padding-top: 60px;
+
+    box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+
+  }
+
+  .drawer.open { right: 0; }
+
+  .drawer-section {
+
+    padding: 20px; border-bottom: 1px solid #2d3748;
+
+  }
+
+  .drawer-section-title {
+
+    font-size: 10px; font-weight: 700; color: #718096;
+
+    text-transform: uppercase; letter-spacing: 0.1em;
+
+    margin-bottom: 14px;
+
+  }
+
+  /* ドロワーフォーム */
+
+  .d-form-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+
+  .d-form-group label { font-size: 11px; font-weight: 600; color: #a0aec0; }
+
+  .d-form-group input, .d-form-group textarea {
+
+    padding: 8px 10px; border: 1.5px solid #2d3748;
+
+    border-radius: 6px; font-size: 12px; font-family: inherit;
+
+    background: #2d3748; color: #e2e8f0;
+
+    transition: border-color 0.2s; width: 100%;
+
+  }
+
+  .d-form-group input:focus, .d-form-group textarea:focus {
+
+    outline: none; border-color: #FF9900;
+
+  }
+
+  .d-form-group textarea { resize: vertical; min-height: 90px; }
+
+  .d-form-group input::placeholder, .d-form-group textarea::placeholder { color: #4a5568; font-size: 11px; }
+
+  .d-add-grid {
+
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;
+
+  }
+
+  .d-add-grid input {
+
+    padding: 8px 10px; border: 1.5px solid #2d3748;
+
+    border-radius: 6px; font-size: 12px; font-family: inherit;
+
+    background: #2d3748; color: #e2e8f0; width: 100%;
+
+  }
+
+  .d-add-grid input:focus { outline: none; border-color: #FF9900; }
+
+  .d-add-grid input::placeholder { color: #4a5568; font-size: 11px; }
+
+  /* ドロワーボタン */
+
+  .btn-drawer-primary {
+
+    padding: 8px 14px; border: none; border-radius: 6px;
+
+    font-size: 12px; font-weight: 600; cursor: pointer;
+
+    background: #FF9900; color: #131921; width: 100%;
+
+    margin-bottom: 6px; transition: background 0.15s;
+
+  }
+
+  .btn-drawer-primary:hover { background: #e68900; }
+
+  .btn-drawer-save {
+
+    padding: 8px 14px; border: none; border-radius: 6px;
+
+    font-size: 12px; font-weight: 600; cursor: pointer;
+
+    background: #276749; color: white; width: 100%;
+
+    transition: background 0.15s;
+
+  }
+
+  .btn-drawer-save:hover { background: #22543d; }
+
+  /* 商品リスト（ドロワー内） */
+
+  .drawer-product-item {
+
+    display: flex; align-items: center; justify-content: space-between;
+
+    padding: 8px 0; border-bottom: 1px solid #2d3748; font-size: 12px; color: #e2e8f0;
+
+  }
+
+  .drawer-product-item:last-child { border-bottom: none; }
+
+  .drawer-product-name { flex: 1; line-height: 1.4; }
+
+  .drawer-product-code { font-size: 10px; color: #718096; margin-top: 2px; }
+
+  .btn-del {
+
+    background: none; border: 1px solid #e53e3e; color: #e53e3e;
+
+    border-radius: 4px; padding: 3px 8px; font-size: 10px; cursor: pointer;
+
+    flex-shrink: 0; margin-left: 8px;
+
+  }
+
+  .btn-del:hover { background: #742a2a; }
+
+  .save-notice {
+
+    font-size: 11px; color: #68d391; font-weight: 600;
+
+    text-align: center; display: block; margin-top: 6px;
+
+    opacity: 0; transition: opacity 0.3s;
+
+  }
+
+  .save-notice.show { opacity: 1; }
+
+  /* メインコンテナ */
+
+  .container { max-width: 860px; margin: 0 auto; padding: 20px 16px; }
+
+  .section {
+
+    background: white; border-radius: 10px; padding: 20px;
+
+    margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+
+  }
+
+  .section-title {
+
+    font-size: 13px; font-weight: 700; color: #1a365d;
+
+    text-transform: uppercase; letter-spacing: 0.08em;
+
+    margin-bottom: 14px; padding-bottom: 10px;
+
+    border-bottom: 2px solid #e2e8f0;
+
+  }
+
+  /* 発注選択 */
+
+  .order-row {
+
+    display: flex; align-items: center; gap: 12px;
+
+    padding: 10px 0; border-bottom: 1px solid #f0f0f0;
+
+  }
+
+  .order-row:last-child { border-bottom: none; }
+
+  .order-check { width: 18px; height: 18px; cursor: pointer; accent-color: #2b6cb0; flex-shrink: 0; }
+
+  .order-name { flex: 2; font-size: 13px; line-height: 1.4; }
+
+  .order-code { flex: 1; font-size: 11px; color: #718096; }
+
+  .order-qty { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+
+  .qty-btn {
+
+    width: 28px; height: 28px; border: 1.5px solid #cbd5e0;
+
+    background: white; border-radius: 4px; font-size: 18px;
+
+    cursor: pointer; display: flex; align-items: center;
+
+    justify-content: center; color: #2d3748;
+
+  }
+
+  .qty-btn:hover { background: #edf2f7; }
+
+  .qty-input {
+
+    width: 50px; text-align: center; padding: 4px;
+
+    border: 1.5px solid #cbd5e0; border-radius: 4px;
+
+    font-size: 13px; font-weight: 600;
+
+  }
+
+  .qty-input:focus { outline: none; border-color: #3182ce; }
+
+  /* メール */
+
+  .mail-preview {
+
+    background: #f7fafc; border: 1.5px solid #e2e8f0;
+
+    border-radius: 8px; padding: 16px 18px;
+
+    font-family: Helvetica, Arial, sans-serif;
+
+    font-weight: 400; font-size: 12px; line-height: 1.8;
+
+    white-space: pre-wrap; word-break: break-all;
+
+    color: #2d3748; margin-bottom: 12px; min-height: 100px;
+
+  }
+
+  .btn-copy {
+
+    background: #d69e2e; color: white; border: none;
+
+    font-size: 14px; font-weight: 600; padding: 12px 24px;
+
+    width: 100%; border-radius: 6px; cursor: pointer;
+
+    transition: background 0.15s;
+
+  }
+
+  .btn-copy:hover { background: #b7791f; }
+
+  .btn-copy.copied { background: #276749; }
+
+  .empty-state { text-align: center; color: #a0aec0; padding: 24px; font-size: 13px; }
+
+  .badge {
+
+    display: inline-block; background: #2b6cb0; color: white;
+
+    border-radius: 999px; font-size: 10px; font-weight: 700;
+
+    padding: 2px 7px; margin-left: 6px;
+
+  }
+
+  @media (max-width: 600px) {
+
+    .order-code { display: none; }
+
+    .d-add-grid { grid-template-columns: 1fr; }
+
+  }
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <div class="logo">
+
+    <span class="logo-text">Ogizon</span>
+
+    <svg width="64" height="7" viewBox="0 0 64 7" fill="none" style="display:block;margin-top:2px">
+
+      <path d="M2 3 Q32 7 62 3" stroke="#FF9900" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
+      <polygon points="59,1 64,3.5 59,6" fill="#FF9900"/>
+
+    </svg>
+
+  </div>
+
+  <button class="hamburger" id="hamburger" onclick="toggleDrawer()">
+
+    <span></span><span></span><span></span>
+
+  </button>
+
+</header>
+
+<!-- ドロワー -->
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<div class="drawer" id="drawer">
+
+  <!-- 商品追加 -->
+
+  <div class="drawer-section">
+
+    <div class="drawer-section-title">📦 商品を追加</div>
+
+    <div class="d-add-grid">
+
+      <input type="text" id="inp-name" placeholder="商品名">
+
+      <input type="text" id="inp-code" placeholder="注文コード">
+
+      <input type="text" id="inp-vol" placeholder="内容量">
+
+      <input type="text" id="inp-url" placeholder="URL">
+
+    </div>
+
+    <button class="btn-drawer-primary" onclick="addProduct()">＋ 追加</button>
+
+  </div>
+
+  <!-- 登録済み商品 -->
+
+  <div class="drawer-section">
+
+    <div class="drawer-section-title">📋 登録済み商品</div>
+
+    <div id="drawer-product-list"></div>
+
+  </div>
+
+  <!-- テンプレート設定 -->
+
+  <div class="drawer-section">
+
+    <div class="drawer-section-title">✉️ メールテンプレート</div>
+
+    <div class="d-form-group">
+
+      <label>宛先名</label>
+
+      <input type="text" id="tmpl-to" placeholder="例：〇〇さん">
+
+    </div>
+
+    <div class="d-form-group">
+
+      <label>CC名</label>
+
+      <input type="text" id="tmpl-cc" placeholder="例：××先生">
+
+    </div>
+
+    <div class="d-form-group">
+
+      <label>送信者名</label>
+
+      <input type="text" id="tmpl-sender" placeholder="例：〇〇">
+
+    </div>
+
+    <div class="d-form-group">
+
+      <label>学年</label>
+
+      <select id="tmpl-grade" style="padding:8px 10px;border:1.5px solid #2d3748;border-radius:6px;font-size:12px;font-family:inherit;background:#2d3748;color:#e2e8f0;width:100%;outline:none;">
+
+        <option value="">選択してください</option>
+
+        <option value="B4">B4</option>
+
+        <option value="M1">M1</option>
+
+        <option value="M2">M2</option>
+
+      </select>
+
+    </div>
+
+    <div class="d-form-group">
+
+      <label>用途説明</label>
+
+      <input type="text" id="tmpl-purpose" placeholder="例：実験で使用いたしますので">
+
+    </div>
+
+    <div class="d-form-group">
+
+      <label>署名</label>
+
+      <textarea id="tmpl-signature" placeholder="例：
+
+〇〇大学大学院
+
+△△研究科
+
+xx@example.ac.jp"></textarea>
+
+    </div>
+
+    <button class="btn-drawer-save" onclick="saveTemplate()">💾 保存</button>
+
+    <span class="save-notice" id="save-notice">✓ 保存しました</span>
+
+  </div>
+
+</div>
+
+<!-- メイン -->
+
+<div class="container">
+
+  <div class="section">
+
+    <div class="section-title">🛒 発注する商品を選択 <span id="selected-badge" class="badge" style="display:none">0</span></div>
+
+    <div id="order-list"><div class="empty-state">右上のメニューから商品を追加してください</div></div>
+
+  </div>
+
+  <div class="section">
+
+    <div class="section-title">✉️ メール文章</div>
+
+    <div class="mail-preview" id="mail-preview">← 商品を選択するとメール文章が自動生成されます</div>
+
+    <button class="btn-copy" id="copy-btn" onclick="copyMail()">📋 メール文章をコピー</button>
+
+  </div>
+
+</div>
+
+<script>
+
+  const DEFAULT_PRODUCTS = [
+
+    { id:"1", name:"クアラテック手袋（DXパウダーフリー）M", code:"09890797", vol:"1ケース（100枚×10箱）", url:"https://www.monotaro.com/p/0989/0797/" },
+
+    { id:"2", name:"GILSON ダイアモンドチップ D1000 EasyPack 未滅菌 F161671", code:"09170822", vol:"200本×5袋", url:"https://www.monotaro.com/p/0917/0822/" },
+
+    { id:"3", name:"日本製紙クレシア キムタオル", code:"33237217", vol:"1箱（150枚）", url:"https://www.monotaro.com/p/3323/7217/" },
+
+    { id:"4", name:"エッペンドルフ 5mLチューブ（通常・ナチュラル）", code:"24533583", vol:"200本入", url:"https://www.monotaro.com/p/2453/3583/" },
+
+    { id:"5", name:"ポリイミドテープ 絶縁 耐熱", code:"56388508", vol:"1巻", url:"https://www.monotaro.com/p/5638/8508/" },
+
+    { id:"6", name:"富士フイルム和光純薬 エタノール (99.5) 500mL", code:"057-00456", vol:"500mL", url:"https://labchem-wako.fujifilm.com/jp/product/detail/W01W0105-0045.html" }
+
+  ];
+
+  const DEFAULT_TEMPLATE = {
+
+    to: "", cc: "", sender: "", grade: "", purpose: "実験で使用いたしますので",
+
+    signature: ""
+
+  };
+
+  let products = JSON.parse(localStorage.getItem('ogizon-products') || 'null') || DEFAULT_PRODUCTS;
+
+  let tmpl = JSON.parse(localStorage.getItem('ogizon-template') || 'null') || DEFAULT_TEMPLATE;
+
+  let selections = {};
+
+  function saveProducts() { localStorage.setItem('ogizon-products', JSON.stringify(products)); }
+
+  function saveTmplData() { localStorage.setItem('ogizon-template', JSON.stringify(tmpl)); }
+
+  // ===== ドロワー =====
+
+  function toggleDrawer() {
+
+    const open = document.getElementById('drawer').classList.toggle('open');
+
+    document.getElementById('drawer-overlay').classList.toggle('open', open);
+
+    document.getElementById('hamburger').classList.toggle('open', open);
+
+    if (open) renderDrawerProducts(), renderTemplateForm();
+
+  }
+
+  function closeDrawer() {
+
+    document.getElementById('drawer').classList.remove('open');
+
+    document.getElementById('drawer-overlay').classList.remove('open');
+
+    document.getElementById('hamburger').classList.remove('open');
+
+  }
+
+  // ===== 商品管理 =====
+
+  function addProduct() {
+
+    const name = document.getElementById('inp-name').value.trim();
+
+    const code = document.getElementById('inp-code').value.trim();
+
+    const vol  = document.getElementById('inp-vol').value.trim();
+
+    const url  = document.getElementById('inp-url').value.trim();
+
+    if (!name || !code) { alert('商品名と注文コードは必須です'); return; }
+
+    products.push({ id: Date.now().toString(), name, code, vol, url });
+
+    saveProducts();
+
+    ['inp-name','inp-code','inp-vol','inp-url'].forEach(id => document.getElementById(id).value = '');
+
+    renderDrawerProducts();
+
+    renderOrderList();
+
+  }
+
+  function deleteProduct(id) {
+
+    if (!confirm('この商品を削除しますか？')) return;
+
+    products = products.filter(p => p.id !== id);
+
+    delete selections[id];
+
+    saveProducts();
+
+    renderDrawerProducts();
+
+    renderOrderList();
+
+    renderMail();
+
+  }
+
+  function renderDrawerProducts() {
+
+    const el = document.getElementById('drawer-product-list');
+
+    if (products.length === 0) {
+
+      el.innerHTML = '<div style="color:#4a5568;font-size:12px;text-align:center;padding:12px">商品がありません</div>';
+
+      return;
+
+    }
+
+    el.innerHTML = products.map(p => `
+
+      <div class="drawer-product-item">
+
+        <div>
+
+          <div class="drawer-product-name">${esc(p.name)}</div>
+
+          <div class="drawer-product-code">${esc(p.code)}</div>
+
+        </div>
+
+        <button class="btn-del" onclick="deleteProduct('${p.id}')">削除</button>
+
+      </div>`).join('');
+
+  }
+
+  // ===== 発注選択 =====
+
+  function toggleSelect(id, checked) {
+
+    if (checked) selections[id] = selections[id] || 1;
+
+    else delete selections[id];
+
+    updateBadge(); renderMail();
+
+  }
+
+  function changeQty(id, delta) {
+
+    if (!selections[id]) return;
+
+    selections[id] = Math.max(1, selections[id] + delta);
+
+    document.getElementById('qty-' + id).value = selections[id];
+
+    renderMail();
+
+  }
+
+  function setQty(id, val) {
+
+    const n = parseInt(val);
+
+    if (!isNaN(n) && n > 0) { selections[id] = n; renderMail(); }
+
+  }
+
+  function updateBadge() {
+
+    const count = Object.keys(selections).length;
+
+    const badge = document.getElementById('selected-badge');
+
+    badge.textContent = count;
+
+    badge.style.display = count > 0 ? 'inline-block' : 'none';
+
+  }
+
+  function renderOrderList() {
+
+    const el = document.getElementById('order-list');
+
+    if (products.length === 0) {
+
+      el.innerHTML = '<div class="empty-state">右上のメニューから商品を追加してください</div>'; return;
+
+    }
+
+    el.innerHTML = products.map(p => {
+
+      const checked = !!selections[p.id];
+
+      const qty = selections[p.id] || 1;
+
+      return `
+
+        <div class="order-row">
+
+          <input type="checkbox" class="order-check" ${checked ? 'checked' : ''}
+
+            onchange="toggleSelect('${p.id}', this.checked)">
+
+          <div class="order-name">${esc(p.name)}</div>
+
+          <div class="order-code">${esc(p.code)}</div>
+
+          <div class="order-qty" style="${checked ? '' : 'opacity:0.3;pointer-events:none'}">
+
+            <button class="qty-btn" onclick="changeQty('${p.id}', -1)">−</button>
+
+            <input id="qty-${p.id}" class="qty-input" type="number" min="1" value="${qty}"
+
+              onchange="setQty('${p.id}', this.value)">
+
+            <button class="qty-btn" onclick="changeQty('${p.id}', 1)">＋</button>
+
+          </div>
+
+        </div>`;
+
+    }).join('');
+
+    updateBadge();
+
+  }
+
+  // ===== メール生成 =====
+
+  function buildMail() {
+
+    const selected = products.filter(p => selections[p.id]);
+
+    if (selected.length === 0) return null;
+
+    const items = selected.map(p => {
+
+      const qty = selections[p.id];
+
+      let block = ・${p.name}\n\n注文コード：${p.code};
+
+      if (p.vol) block += \n\n内容量：${p.vol};
+
+      block += \n\n個数：${qty}個;
+
+      if (p.url) block += \n\n${p.url};
+
+      return block;
+
+    }).join('\n\n\n');
+
+    const to = tmpl.to || '（宛先）';
+
+    const cc = tmpl.cc || '（CC）';
+
+    const name = tmpl.sender || '（名前）';
+
+    const grade = tmpl.grade || '';
+
+    const gradeLabel = grade ? ${grade}  : '';
+
+    const senderFull = ${gradeLabel}${name};
+
+    const purpose = tmpl.purpose || '実験で使用いたしますので';
+
+    const sig = tmpl.signature ? --\n${tmpl.signature} : '';
+
+    return ${to}\nCc ${cc}\n\nお世話になっております。${senderFull}です。\n${purpose}、以下の備品の購入をお願いいたします。\n\n${items}\n\n以上，よろしくお願いいたします．\n${name}\n${sig};
+
+  }
+
+  function renderMail() {
+
+    document.getElementById('mail-preview').textContent = buildMail() || '← 商品を選択するとメール文章が自動生成されます';
+
+  }
+
+  function copyMail() {
+
+    const mail = buildMail();
+
+    if (!mail) return;
+
+    navigator.clipboard.writeText(mail).then(() => {
+
+      const btn = document.getElementById('copy-btn');
+
+      btn.textContent = '✅ コピーしました！';
+
+      btn.classList.add('copied');
+
+      setTimeout(() => { btn.textContent = '📋 メール文章をコピー'; btn.classList.remove('copied'); }, 2000);
+
+    }).catch(() => alert('コピーできませんでした。手動で選択してコピーしてください。'));
+
+  }
+
+  // ===== テンプレート =====
+
+  function renderTemplateForm() {
+
+    document.getElementById('tmpl-to').value = tmpl.to;
+
+    document.getElementById('tmpl-cc').value = tmpl.cc;
+
+    document.getElementById('tmpl-sender').value = tmpl.sender;
+
+    document.getElementById('tmpl-grade').value = tmpl.grade || '';
+
+    document.getElementById('tmpl-purpose').value = tmpl.purpose;
+
+    document.getElementById('tmpl-signature').value = tmpl.signature;
+
+  }
+
+  function saveTemplate() {
+
+    tmpl.to = document.getElementById('tmpl-to').value.trim();
+
+    tmpl.cc = document.getElementById('tmpl-cc').value.trim();
+
+    tmpl.sender = document.getElementById('tmpl-sender').value.trim();
+
+    tmpl.grade = document.getElementById('tmpl-grade').value;
+
+    tmpl.purpose = document.getElementById('tmpl-purpose').value.trim();
+
+    tmpl.signature = document.getElementById('tmpl-signature').value.trim();
+
+    saveTmplData(); renderMail();
+
+    const n = document.getElementById('save-notice');
+
+    n.classList.add('show');
+
+    setTimeout(() => n.classList.remove('show'), 2000);
+
+  }
+
+  function esc(str) {
+
+    return (str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+  }
+
+  renderOrderList();
+
+  renderMail();
+
+</script>
+
+</body>
+
+</html>
