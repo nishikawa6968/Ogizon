@@ -379,7 +379,8 @@ xx@example.ac.jp"></textarea>
   function toggleSelect(id, checked) {
     if (checked) selections[id] = selections[id] || 1;
     else delete selections[id];
-    updateBadge(); renderMail();
+    renderOrderList();
+    renderMail();
   }
   function changeQty(id, delta) {
     if (!selections[id]) return;
@@ -426,10 +427,16 @@ xx@example.ac.jp"></textarea>
     const qid = e.target.dataset.qtyInput;
     if (qid) setQty(qid, e.target.value);
   });
-  document.getElementById('order-list').addEventListener('click', function(e) {
+
+  function handleQtyClick(e) {
     const btn = e.target.closest('[data-qty-id]');
-    if (btn) changeQty(btn.dataset.qtyId, parseInt(btn.dataset.delta));
-  });
+    if (!btn) return;
+    e.preventDefault();
+    changeQty(btn.dataset.qtyId, parseInt(btn.dataset.delta));
+  }
+
+  document.getElementById('order-list').addEventListener('click', handleQtyClick);
+  document.getElementById('order-list').addEventListener('touchend', handleQtyClick);
 
   // ===== メール生成 =====
   function buildMail() {
