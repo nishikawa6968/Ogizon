@@ -158,6 +158,7 @@
   .order-name { flex: 2; font-size: 13px; line-height: 1.4; }
   .order-code { flex: 1; font-size: 11px; color: #718096; }
   .order-qty { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+  .qty-disabled { opacity: 0.3; pointer-events: none; touch-action: none; }
   .qty-btn {
     width: 28px; height: 28px; border: 1.5px solid #cbd5e0;
     background: white; border-radius: 4px; font-size: 18px;
@@ -409,7 +410,7 @@ xx@example.ac.jp"></textarea>
           <input type="checkbox" class="order-check" data-check-id="${p.id}" ${checked ? 'checked' : ''}>
           <div class="order-name">${esc(p.name)}</div>
           <div class="order-code">${esc(p.code)}</div>
-          <div class="order-qty" style="${checked ? '' : 'opacity:0.3;pointer-events:none'}">
+          <div class="order-qty ${checked ? '' : 'qty-disabled'}">
             <button class="qty-btn" data-qty-id="${p.id}" data-delta="-1">−</button>
             <input id="qty-${p.id}" class="qty-input" type="number" min="1" value="${qty}" data-qty-input="${p.id}">
             <button class="qty-btn" data-qty-id="${p.id}" data-delta="1">＋</button>
