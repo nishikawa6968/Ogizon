@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#131921">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- black-translucent は iOS 26 で上端に消せないぼかしが入るため使わない（不透明なステータスバーになる） -->
 <meta name="apple-mobile-web-app-title" content="Ogizon">
 <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAATvElEQVR4nO2deVxUVf/HPwwwbCIqO7iWaCWiqLiUCqLmhphpmKk/09K0tNSynnrqyaw069HU1CwzM8tEDVRccAlRpMw0xCUWTVzYBfUnMMAg8PxB+EIYYOaec++de/m+/9Jxzvd8nfueM+eeexYLyIizZ4dKOesnxCE/K81Crrolq5jkbdpIJbmolZDEhCHElFuUwCQyYQxiiM01IIlMCIGn2FwCkcgED3iIrWENQDITvODhEpPQJDPBG1anBDXxJDIhBUK6ICa30CQzIRVCXDNJaJKZkBpTnTNaaJKZkAtT3DNKaJKZkBtjHWxUaJKZMBeMcZF5HJogzIkGhabWmTA3GnOyXqFJZsJcachNg0KTzIS5U5+j1IcmVEUdoal1JpSCIVephSZUxQNCU+tMKI3azlILTaiK+0JT60wolZruUgtNqAoSmlAVGoC6G4TyqXaYWmhCVZDQhKogoQlVQUITqsKCbggJY/Dy9MC5M78KKjt89DicPpPAOSPDWElSC0c0Gg18Oj4M/+5+eKSTD7xbe6G1txfc3dxgb2cHOzs72NraoLyiAsXFxSgpLkFBYSEys7KRnpGJGzfScf7CX0hIPIecnFy5/zsEZxQhtLu7G4YNHYyRw4aiX9/ecHCwb7SMpaUltNbWcGreHO7ubuj48EN13pOZlY2Y2OM4EH0Yx+LiUVJSIkb6hISYrdAajQZDBgdhxvSpCBrYHxYW/Hf+9fL0wOSJYZg8MQxFRTps3xmJbzZ9j5TUS9zrIqTBLG8Kx4aG4NSJGGzd/A0GBQ4QRebaODjYY9rUSYiPPYhtP3yLRx/pJHqdBH/MSuhufr6IjvoZG9avRvv2bWXLY0hwEGIP78Pnny1BCycn2fIgTMcshNZoNHj1lVmIjopAr57+cqcDoKoPPmXSszj2y37069tb7nQII5FdaEfHZti+9Tv8599vwtra/Lr03l6e2L1zK+a+/JLcqRBGIKvQbm6uiIrYhqCB/eVMo1E0Gg3ef/ctfLz4PUn684RwZBPa1dUF+3ftgG+Xx+RKwWReenEaVq1YJncaRAPIIrSDgz22bflW1hs/oTw3YTzefnOB3GkQ9SCL0BvWrUY3P185qubC6/PmYMIzT8udBmEAyedyzJg+FUs/ep9bvLy8fOyPPoS4+JNISU1FRkYWinRFsLKyhqNjM3Ro1xZdu3bBoMABGDwoiNuNZ1GRDoFDR+Lq1etc4hF8kFToTj4dcfRQFGxsbJhj3UjPwNJPV2DX7r3Ql5UZVcbFxRmzZ76AWTOmccnh9JkEjBzzDCoqKphjEXyQtMvx8eL3uIi0ZWs4+g0ciu07I42WGahqzT9c8ikGDh6JCxf/Ys6jV09/TAwbxxyH4IdkLXRw0EBs3/odc5xFH32CNeu+Zo5jZ2eHLZu+Yh4yzM7JQcDjwSguLmbOiWBHMqF/id7DfCO4fOUaLP10BaeMABsbG+yNDId/dz+mOO9/uBRrv9wguLzW2hp9+wQgKLA/fLs8hocf6oCWLVrAwcEeJSWlKCwsxPX0dCQnp+LkqdM4fOQobt2+zZSzWpFE6ICePXAgaidTjKPH4hD23POorOSbrqeHB07ERsOpeXPBMa5dv4GAxweZ3Jd2dXXB7JnTMenZMDg7tzK6XHl5OaIPHcGadRvwx5k/Db5n5fJPMHlimEn5AMDFv5IQOGRUndeVMsFfkj70C9OmMJUvLi7G/Dfe5i4zAGRlZ+P9D5YwxWjXtg2GDA4y+v2WlpaYN3c2Tv8ai1dfmWWSzNXlR40YhgNRO7Fh/Wq4urqYmLF6EV1oe3t7jB41nCnG1xs3Iz0jk1NGddkavhPJKWxzoCeMN25c2svTA1GR4Xj37YVGLVRojLGhITgRE00TqP5BdKEHBQ5gGtnQ6/VYt154/9QYKioqsGrNl0wxgoMGQmtt3eB7Hnu0Mw7ui0DvXj2Y6qqNs3MrRIT/gHFjQ7nGVSKiCz38ycFM5aP2RSP/lvg3QLuj9uP2nTuCyzs6NsPj/frU++8+HR9G5I6t8PTwEFxHQ1hbW2Hd6uUIDRkhSnylILrQTzzel6n8rj37OGXSMHq9HgcOHmGK0f+JfgZfd3Fxxs5t38O5VUum+I1haWmJr9auQkBPvr8ASkJUoZ1btUTbNq0Fl9fr9Yg9foJjRg0TzSi0oeE/jUaDr9auhLeXJ1NsY7G2tsKmb9bC3dVVkvrMDVFn1Hfvxja+m3j+gqQPLH7/4zRTeUPj7C+9+DwCBzzBFNdUPNzd4eHuLmmd5oKoLXTnzj5M5f9MSOSUiXHk59/Ctes3BJdv4eT0QB/Zw90db70xn0dqhJGI2kK3ae3NVP7S5SucMjGey39fQbu2bQSX9/b2RFZ2NgBg4YK5aNbMgSmfe/eqHqJE7o7ChYtJyMrOgZWVJTzc3eHf3Q9jQ0MwODiQVtL8g6hCs/Yb09Ku8knEBK6kXcXgQYGCy3t7eeL0mQR4uLtj4oTxTLlcTErGnNcW4vyFi3X+7e7dAqReuozwHRHo17c3Vq9Yhg7t2zHVpwZE7XKw9uNyb97klIkJdeay1Vnd5Zj8XBi0Wq3gOGcTz2Nk6HiDMtfmt5OnMDzkaVz+W/pfNHNDVKFZn4RJMf5cm7z8W0zlq//PLCtacnNvYsKk51FUpDO6TP6t23hm4lQUFhYJrlcNiCq0ra0tU3mdzvgLygvWURVbW1t07uTD9PP/4dLPBH2Zb6RnYPnKNYLrVQOiCm3HKLReb/zkfV7o9Xqm8ra2tggOGiC4/N9X0rBt+8+Cy3+14VvkM/7KKBlRhWa+8xZhdl3jVbLVaWEB9A7oJbj8z5F7mHLQl5Vhd9R+weWVjqhCFzNuT6u1EX5TJbhOhhs5ACguLoFvl0cFl4/ad4CpfgDYwyGGUhFXaMb+qJ2dHadMjMeesU69Xo/27YTtN1JcXIyU1MtM9QNA4rnzzDGUiqhC63RsQruYOPGdBy4uzkzlrawsBXe1kpJTuawgLygoxPUb6cxxlIioQmfn5DCVd5Nhgg3r6o/SUuE3lTwlvM7wCF/JiCo06yqT9jI8+XqoQ3um8izjwAWFhUx1P5BHUdMcjzZroX061j0XRWx8DJzFYgp37xYILsvzoUhBAb8vh5IQVegUxnV6Pfy780nESJxbtUQ7gTd0APD/d+8yrXrhuQhYjAXFSkBUoRMSzzGV7+7ny/y00RT69A5gKn828TzTyI4j48y8mjRv7sgtlpIQVej8/FtM3Q6tVivpZujDGNc/nk08jyKGx/WsU00fiOXAL5aSEH1NYdwJYZuTVPNUaN1NT8RAq9VixLAhTDFOxP/GdJinpye/ZVptGJa+KRnRhT54+Bem8qEhI0RfXFpdT6uWwuspLCxC/K8nkZObK3gsmddRcs2aOTCt5VQyogsdExuH0tJSweW1Wi1mv/Qix4zqotFo8Nqc2UwxYmKPQ19WhrKye0i7ek1QDKfmzdHa24spDwDw6+rbZFewiC60TqfD3v0HmWLMfGGqqKumJ4aNY24dw3dE3P/z+QvCt+od/iRbtwcAxoSMZI6hVCTZ227jpu+Zytvb22Pl8k9EaXU8PTyweNG/mWLcSM/A4V+O3v/7qT/OCI7Fes9gbW2FMaNJaFE5dfpPnDt/gSnGoMAB+NdCviuobWxs8P2365l2HgWAjd9teaDfHBN7XHCsvn0CGtyBqTFmvjiNeT6KkpFsB/8ly9j3dX593hzMeXkmh2yqZvL9uHkD897QOTm52LhpywOvXf77ClIvCZ81t2Txe43uk2cIby9PvDFvruB61YBkQh+JicWxuHjmOIve/Rc+/2wJ0wOXhzq0x/7d27mMcX/y2ecGH6Zs2x5h4N3G4dvlMaz7YgU0GuMvT6uWLbHjp81wdGwmuF41IOkZK++8t5hpxKOaKZOexW/HDyNs/FiTTrVycXHGu28vRFzMAXT17cKcx58Jidgabngj963hO1DCsMDhqdBR+GnLRqNGPfoE9MSBqJ3o5NNRcH1qQfJj3WbNmI6PPniXW7y8vHzsO3AQJ+JPIjk1FZmZ2SjSFcHS0uqfY93awc+v6li34EGBgn7KDaHT6RA0NARXGtg7ZOlH72PG9KnM9eyO2o+o/dFISb2M3NybsLKyhLubG/y7++HpMaMxZHAQtxtmpe/gL7nQFhYW+GnLRgwJDpKyWu68Ov/NelvnalxdXXAy7gjzTaeUKF1oyU+SraysxIuz5nI5Vk0uVn7xZaMyA8DNm3n4+JP/SpARUY0sRyMXFhZhwuTpTBsjykX4jgiTJN20+UcciYkVLyED5OTk4vCRo42/UYXIIjRQ9aGPGhOGv5JS5ErBZL797gfMnf+mSXONKysr8cqrr0v25dWXlWHajJeRI8M2auaAbEIDVWsOQ8aGIe7Eb3Km0SgVFRVYsmw53nznP4ImHlVv0yX2BjDl5eWY9co8nDpt+Ki3poCsQgNVS5bGPTsFS5Ytx7175XKnU4es7Gw8PWEKVqxayxTnStpVhI6biIzMLE6ZPUhZ2T3MnrsAe/ZW7clhZWkpKI45XgNTkF1ooKoFXLFqLUaEjkPCWbZVLryoqKjAj9t2YGDwSJyI5/MLkpJ6CcNDxuHkKbaTAmqTn38LY8MmIWJX1P3XWrRwEhRL6Uc8m4XQ1SScPYcnR43FS6/Mw7Vr12XLIyb2OAYNDcFrC95iWiNoiKzsbIwZNxGLP/6Uy6LYyD170T94OE7+/scDrwsdKtSR0HyprKzEz5F7EPBEMCY/PxPH4uIlWfCp0+mwectWDAgejrDnnsfFpGTR6iovL8fqtevR6/EgrFqz3uS+dXl5OfZHH8KI0eMxY9aruHkzr857WgpcrGAolpIQdQd/FioqKhB96AiiDx2Bh7s7hg8bghHDhqBfnwDY27OfwApU3ZTGxMbhQPRhHD0Wx/SoWgh5efn4cMmnWPbZ5+jXtzeCAvujq2+X+4fX29nZorS0FAUFhbiRnoGklFSc/P2PRg+vt7OzQ0eB2zEocSi1JpI/KWRFo9Ggc6eO8O/mh86dfNC6tTdae3vBzc0V9vb2sLO1ga2tLcrLK1BSUoKSkhIUFBYiMzML6RmZuH4jHRcuJiHh7Ln7Z6Gojb59ArA3MlxQ2dlzF2DHz7v4JiQhZttC10dFRQWSklORlJwqdypmy4B6DgA1hjN/nuWXiAyYXR+aYMPKyhL/N/lZQWXz8281ONlKCZDQKmPM6FGCzxOPZlyhbw6Q0CrC3d0NH3/wnuDyu3bv5ZiNPJDQErHhy1UYPWq4aNsL2NraYsO6VYLXE6ZdvYbjjJsCmQMktEQ8+sgj2LRhHX47fhjTpk7iuu1Xh/btcHBfBNPi2tVrv0J5ubIfewMKHLZTKieOHsQjNc4+1+l0iNoXjT17D+BYXLygMfDW3l6YMX0qpk55jukLkpxyCYOeHIWysnuCY5gLJLRE1Ba6Jnq9HhcuJuFs4nkkJJ7D5ctXcPvOHdy+cwd3796FtbUWTs2bw8nJEe3atkWvnv7o3asH+vQOgJWVsElI1VRWViLkqTD8zrCXiDmhuHFoNaLVatHDvxt6+HeTvO5l/12pGpkB6kM3aSL37FXdybMkdBMlYlcUZs+Zr7qd/knoJkZlZSVWfvElZs2Zr/jJ/IagPnQTIjMrGwsWviP5ol0pIaGbADqdDl9v3IwVq9ZCx3BkhhIgoVVMRmYWtvy4DRs3beG+8sZcoXFoiWjVsiV69fJH7149EdDTH35dfblvrFhZWYmk5FTExf+KqH3R+P3UadXd9DUGCS0jnh4e6OTzMDr5dETbtm3g7uYKVxcXuLq6wMnJETY2NrC1sYFWawONxgJlZWUoKS2FTqdDXl4+cnJvIjMzC6mX/kZySioSz11oMi1xfZDQhKqgYTtCVZDQhKogoQlVQUITqoKEJlQFCU2oChKaUBXMj77zFqUBAFwWdWBOhmi6VHsEsLnErYWumRBBGEveorR63RHiFPOTwvoqpRabYG3khDgkWh+6oW8eQTSG0AZRtBbaENRqNz2ENGosnkg6H5pXx58wf+T6dZZt2I66I+pE7q4mt+mjctwAEOYBD4F5XX+u86F5fTNJbvOHdytslkLXhORWH2J1JXheY9FXrPD8EEhu6RG7P8z7mkq6BEuMD4ck54uY16h2bDGunWxrCklu80HKayH23B9ZF8kq7edMLYj5uTf2mectShP1upjNqm8pxi6bouBN7XM1G6FrIvXAvDldEKHQZ1aFWQpdE3N4omguF0/uz8JcPoeGMHuhayL3BRVKfXf5SkAJEtdEUUIbQomSmDNKE7g2ihe6JiS3MJQucU1UJXRtSHDDqEng2qha6No0RcHVLK8hmpTQ9aEG0ZuauPVBQhuBuQhP0jYOCS0BtHeJdJDQhKqgrcAIVUFCE6qChCZUBQlNqApNflaahdxJEAQP8rPSLKiFJlQFCU2oChKaUBUkNKEqNEBVZ1ruRAiChWqHqYUmVAUJTaiK+0JTt4NQKjXdpRaaUBUPCE2tNKE0ajtLLTShKuoITa00oRQMuUotNKEqDApNrTRh7tTnaL0tNElNmCsNudlgl4OkJsyNxpykPjShKhoVmlppwlwwxkWjWmiSmpAbYx00ustBUhNyYYp7JvWhSWpCakx1zuSbQpKakAohrjHJSfviEWLA0mgyDdtRa03whtUp5nFokprgBQ+XuMpIXRBCCDwbRVFaVxKbMAYxft1F7S6Q2IQhxOymStb/JbmbNlLda8l6Q0eSqxM5Bwr+B2U14mPqDREnAAAAAElFTkSuQmCC">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='36' fill='%23131921'/><text x='16' y='120' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='90' fill='white' letter-spacing='-3'>Ogi</text><path d='M12 135 Q78 160 166 135' stroke='%23FF9900' stroke-width='7' fill='none' stroke-linecap='round'/><polygon points='156,123 168,135 156,147' fill='%23FF9900'/></svg>">
@@ -433,8 +433,30 @@
   .add-row input::placeholder { color: var(--faint); }
   .add-row input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255,153,0,.22); }
   .add-row .btn { height: 44px; padding: 0 16px; }
-  .cat-row { display: flex; align-items: center; gap: 2px; padding: 4px 6px 4px 4px; }
+  .cat-row {
+    display: flex; align-items: center; gap: 2px; padding: 4px 4px 4px 4px;
+    background: var(--surface); position: relative;
+  }
   .cat-row + .cat-row { border-top: 1px solid var(--border); }
+  .sorting .cat-row { transition: transform .18s cubic-bezier(.2,.8,.2,1); }
+  .sorting .cat-row.dragging {
+    z-index: 2; transition: box-shadow .15s;
+    box-shadow: var(--shadow-lg); border-radius: 10px; border-color: transparent;
+  }
+  .sorting .cat-row.dragging.dropping { transition: transform .16s ease-out, box-shadow .16s; box-shadow: none; }
+  .sorting .cat-row.dragging + .cat-row { border-top-color: transparent; }
+  .sorting .cat-main { pointer-events: none; }
+  .sorting .list-card, .list-card.sorting { overflow: visible; }
+  .drag-handle {
+    width: 44px; height: 44px; flex-shrink: 0; border: none; border-radius: 9px;
+    background: transparent; color: var(--faint);
+    display: grid; place-items: center;
+    cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+  .drag-handle:hover { background: var(--surface-2); color: var(--muted); }
+  .drag-handle:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .dragging .drag-handle { cursor: grabbing; color: var(--accent-text); }
   .cat-main {
     flex: 1; min-width: 0; text-align: left; border: none; background: transparent;
     display: flex; align-items: baseline; gap: 10px; padding: 10px; border-radius: 9px;
@@ -559,7 +581,7 @@
         <button type="submit" class="btn btn-primary" data-icon="plus" data-size="16"><span>追加</span></button>
       </form>
       <div id="cat-list"></div>
-      <p class="fine">タップで名前の変更・削除、矢印で並び順を変えられます。並び順はメインの商品一覧とメール文章の順番にもなります。</p>
+      <p class="fine">名前をタップで変更・削除、右の ≡ をドラッグで並び替えできます。この順番がメインの商品一覧とメール文章の並びになります。</p>
     </div>
 
     <div data-panel="mail" hidden>
@@ -832,8 +854,7 @@
     history: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
     external: '<path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
     chevron: '<path d="M9 6l6 6-6 6"/>',
-    up: '<path d="M6 15l6-6 6 6"/>',
-    down: '<path d="M6 9l6 6 6-6"/>',
+    grip: '<path d="M5 8h14M5 12h14M5 16h14"/>',
     box: '<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/>',
     alert: '<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>',
   };
@@ -1188,13 +1209,12 @@
   function renderCatList() {
     const el = $('#cat-list');
     const rows = categories.map((c, i) => `
-      <div class="cat-row">
+      <div class="cat-row" data-i="${i}">
         <button class="cat-main" data-cat-edit="${i}">
           <span class="cat-name">${esc(c)}</span>
           <span class="cat-count">${countIn(c)}品目</span>
         </button>
-        <button class="mini-btn" data-cat-move="-1" data-i="${i}" aria-label="「${esc(c)}」を上へ" ${i === 0 ? 'disabled' : ''}>${ic('up', 18)}</button>
-        <button class="mini-btn" data-cat-move="1" data-i="${i}" aria-label="「${esc(c)}」を下へ" ${i === categories.length - 1 ? 'disabled' : ''}>${ic('down', 18)}</button>
+        <button class="drag-handle" data-i="${i}" aria-label="「${esc(c)}」をドラッグして並び替え（矢印キーでも移動）">${ic('grip', 20)}</button>
       </div>`).join('');
     const unc = countIn(UNCATEGORIZED);
     el.innerHTML = (categories.length
@@ -1216,20 +1236,84 @@
     toast(`カテゴリ「${name}」を追加しました`);
   });
 
+  function moveCategory(from, to) {
+    if (from === to || to < 0 || to >= categories.length) return;
+    const [c] = categories.splice(from, 1);
+    categories.splice(to, 0, c);
+    saveCategories();
+    renderAll();
+  }
+
   $('#cat-list').addEventListener('click', (e) => {
-    const mv = e.target.closest('[data-cat-move]');
-    if (mv) {
-      const i = Number(mv.dataset.i), j = i + Number(mv.dataset.catMove);
-      if (j < 0 || j >= categories.length) return;
-      [categories[i], categories[j]] = [categories[j], categories[i]];
-      saveCategories();
-      renderAll();
-      $(`[data-cat-move="${mv.dataset.catMove}"][data-i="${j}"]`)?.focus();
-      return;
-    }
+    if (e.target.closest('.drag-handle')) return;
     const b = e.target.closest('[data-cat-edit]');
     if (b) openCatEditor(Number(b.dataset.catEdit));
   });
+
+  // キーボード: ハンドルにフォーカスして ↑↓
+  $('#cat-list').addEventListener('keydown', (e) => {
+    const h = e.target.closest('.drag-handle');
+    if (!h || (e.key !== 'ArrowUp' && e.key !== 'ArrowDown')) return;
+    e.preventDefault();
+    const from = Number(h.dataset.i), to = from + (e.key === 'ArrowUp' ? -1 : 1);
+    moveCategory(from, to);
+    $(`.drag-handle[data-i="${Math.max(0, Math.min(categories.length - 1, to))}"]`)?.focus();
+  });
+
+  // ドラッグ&ドロップ（マウス・タッチ共通）
+  let drag = null;
+  $('#cat-list').addEventListener('pointerdown', (e) => {
+    const h = e.target.closest('.drag-handle');
+    if (!h || drag || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    e.preventDefault();
+    const row = h.closest('.cat-row');
+    const rows = [...row.parentElement.querySelectorAll('.cat-row')];
+    const from = rows.indexOf(row);
+    const rects = rows.map(r => r.getBoundingClientRect());
+    drag = { h, row, rows, rects, from, to: from, startY: e.clientY, height: rects[from].height, id: e.pointerId };
+    h.setPointerCapture(e.pointerId);
+    row.parentElement.classList.add('sorting');
+    row.classList.add('dragging');
+  });
+  $('#cat-list').addEventListener('pointermove', (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const { rects, from, rows, height } = drag;
+    const minDy = rects[0].top - rects[from].top;
+    const maxDy = rects[rects.length - 1].bottom - rects[from].bottom;
+    const dy = Math.max(minDy, Math.min(maxDy, e.clientY - drag.startY));
+    drag.row.style.transform = `translateY(${dy}px)`;
+    // 動かしている行の上端/下端が、隣の行の中央を越えたら入れ替え
+    const top = rects[from].top + dy, bottom = rects[from].bottom + dy;
+    let to = from;
+    for (let i = 0; i < rects.length; i++) {
+      const mid = rects[i].top + rects[i].height / 2;
+      if (i > from && bottom > mid) to = i;
+      if (i < from && top < mid && to >= from) to = i;
+    }
+    drag.to = to;
+    rows.forEach((r, i) => {
+      if (i === from) return;
+      const shift = (from < to && i > from && i <= to) ? -height : (to < from && i >= to && i < from) ? height : 0;
+      r.style.transform = shift ? `translateY(${shift}px)` : '';
+    });
+  });
+  function endDrag(e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    const { from, to, rects, row, rows, h } = drag;
+    drag = null;
+    try { h.releasePointerCapture(e.pointerId); } catch { /* already released */ }
+    const offset = to > from ? rects[to].bottom - rects[from].bottom : to < from ? rects[to].top - rects[from].top : 0;
+    row.classList.add('dropping');
+    row.style.transform = `translateY(${offset}px)`;
+    setTimeout(() => {
+      rows.forEach(r => { r.style.transform = ''; });
+      row.classList.remove('dragging', 'dropping');
+      row.parentElement.classList.remove('sorting');
+      if (to !== from) moveCategory(from, to);
+    }, 160);
+  }
+  $('#cat-list').addEventListener('pointerup', endDrag);
+  $('#cat-list').addEventListener('pointercancel', endDrag);
 
   const catEditor = $('#cat-editor');
   let editingCat = -1;
