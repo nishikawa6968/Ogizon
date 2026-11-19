@@ -70,6 +70,7 @@
     font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Helvetica Neue", "Segoe UI", Meiryo, sans-serif;
     background: var(--bg); color: var(--text);
     min-height: 100vh; font-size: 15px; line-height: 1.5;
+    padding-top: calc(var(--header-h) + var(--safe-top));
     -webkit-font-smoothing: antialiased;
   }
   body.no-scroll { overflow: hidden; }
@@ -80,7 +81,7 @@
 
   /* ===== Header ===== */
   .topbar {
-    position: sticky; top: 0; z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     background: var(--brand); color: #fff;
     padding-top: var(--safe-top);
     box-shadow: 0 1px 0 rgba(255,255,255,.06), 0 2px 10px rgba(0,0,0,.18);
@@ -117,8 +118,12 @@
   .muted { color: var(--muted); font-size: 13px; }
 
   /* ===== Catalog ===== */
+  .catalog {
+    display: flex; flex-direction: column; overflow: hidden;
+    max-height: 64vh; max-height: 64dvh;
+  }
   .catalog-head {
-    position: sticky; top: calc(var(--header-h) + var(--safe-top)); z-index: 5;
+    flex-shrink: 0;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
     border-radius: var(--radius) var(--radius) 0 0;
@@ -150,6 +155,14 @@
     .chip-btn .chip-label-long { display: none; }
   }
 
+  .catalog-scroll {
+    flex: 1 1 auto; min-height: 0; overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .catalog.more-below .catalog-scroll {
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 48px), transparent);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 48px), transparent);
+  }
   .group-head {
     display: flex; align-items: center; gap: 8px;
     padding: 14px 16px 6px;
@@ -334,12 +347,12 @@
   .sheet-head h2 { font-size: 17px; font-weight: 700; }
   .tabs {
     margin: 0 16px 4px; padding: 3px; flex-shrink: 0;
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px;
     background: var(--surface-2); border: 1px solid var(--border); border-radius: 11px;
   }
   .tabs button {
     height: 34px; border: none; border-radius: 8px; background: transparent;
-    font-size: 14px; font-weight: 600; color: var(--muted);
+    font-size: 13.5px; font-weight: 600; color: var(--muted);
     transition: background .15s, color .15s;
   }
   .tabs button[aria-selected="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
@@ -404,11 +417,47 @@
   .dialog-actions .spacer { flex: 1; }
   .dialog-actions .btn { height: 42px; font-size: 14px; }
 
+  @media (max-width: 359px) {
+    .item { grid-template-columns: 22px minmax(0, 1fr); }
+    .item .stepper { grid-column: 2; justify-self: start; }
+  }
+
+  /* ===== Categories ===== */
+  .add-row { display: flex; gap: 8px; margin-bottom: 14px; }
+  .add-row input {
+    flex: 1; min-width: 0; height: 44px; padding: 0 12px;
+    border: 1px solid var(--border-strong); border-radius: 10px;
+    background: var(--surface); font-size: 16px;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .add-row input::placeholder { color: var(--faint); }
+  .add-row input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255,153,0,.22); }
+  .add-row .btn { height: 44px; padding: 0 16px; }
+  .cat-row { display: flex; align-items: center; gap: 2px; padding: 4px 6px 4px 4px; }
+  .cat-row + .cat-row { border-top: 1px solid var(--border); }
+  .cat-main {
+    flex: 1; min-width: 0; text-align: left; border: none; background: transparent;
+    display: flex; align-items: baseline; gap: 10px; padding: 10px; border-radius: 9px;
+  }
+  .cat-main:hover { background: var(--surface-2); }
+  .cat-name { font-size: 14.5px; font-weight: 600; overflow-wrap: anywhere; }
+  .cat-count { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .mini-btn {
+    width: 38px; height: 38px; border-radius: 9px; border: none; background: transparent;
+    color: var(--muted); display: grid; place-items: center; flex-shrink: 0;
+  }
+  .mini-btn:hover:not(:disabled) { background: var(--surface-2); color: var(--text); }
+  .mini-btn:disabled { opacity: .25; cursor: default; }
+
   /* ===== Desktop ===== */
   @media (min-width: 900px) {
     .layout {
       grid-template-columns: minmax(0, 1fr) 400px; align-items: start;
       gap: 20px; padding: 24px 20px 48px;
+    }
+    .catalog {
+      position: sticky; top: calc(var(--header-h) + 24px);
+      max-height: calc(100vh - var(--header-h) - 48px);
     }
     .mail {
       position: sticky; top: calc(var(--header-h) + 24px);
@@ -457,7 +506,7 @@
         <button class="chip-btn" id="clear-sel" data-icon="x" data-size="16" hidden><span>解除</span></button>
       </div>
     </div>
-    <div id="catalog-list"></div>
+    <div class="catalog-scroll" id="catalog-scroll"><div id="catalog-list"></div></div>
   </section>
 
   <aside class="card mail" id="mail-card" aria-labelledby="mail-title">
@@ -493,6 +542,7 @@
   </div>
   <div class="tabs" role="tablist">
     <button role="tab" data-tab="products" aria-selected="true">商品</button>
+    <button role="tab" data-tab="categories" aria-selected="false">カテゴリ</button>
     <button role="tab" data-tab="mail" aria-selected="false">メール</button>
     <button role="tab" data-tab="data" aria-selected="false">データ</button>
   </div>
@@ -503,22 +553,31 @@
       <div id="manage-list"></div>
     </div>
 
+    <div data-panel="categories" hidden>
+      <form class="add-row" id="cat-add-form">
+        <input type="text" id="cat-add-input" placeholder="新しいカテゴリ名" autocomplete="off" aria-label="新しいカテゴリ名" enterkeyhint="done">
+        <button type="submit" class="btn btn-primary" data-icon="plus" data-size="16"><span>追加</span></button>
+      </form>
+      <div id="cat-list"></div>
+      <p class="fine">タップで名前の変更・削除、矢印で並び順を変えられます。並び順はメインの商品一覧とメール文章の順番にもなります。</p>
+    </div>
+
     <div data-panel="mail" hidden>
       <p class="panel-note">ここで設定した内容がメール文章に差し込まれます。入力すると自動で保存されます。</p>
       <div class="field-row">
         <div class="field">
           <label for="tmpl-to">宛先名</label>
-          <input type="text" id="tmpl-to" data-tmpl="to" placeholder="例：〇〇さん">
+          <input type="text" id="tmpl-to" data-tmpl="to">
         </div>
         <div class="field">
           <label for="tmpl-cc">CC名</label>
-          <input type="text" id="tmpl-cc" data-tmpl="cc" placeholder="例：××先生">
+          <input type="text" id="tmpl-cc" data-tmpl="cc">
         </div>
       </div>
       <div class="field-row">
         <div class="field">
           <label for="tmpl-sender">送信者名</label>
-          <input type="text" id="tmpl-sender" data-tmpl="sender" placeholder="例：〇〇">
+          <input type="text" id="tmpl-sender" data-tmpl="sender">
         </div>
         <div class="field">
           <label for="tmpl-grade">学年</label>
@@ -532,11 +591,11 @@
       </div>
       <div class="field">
         <label for="tmpl-purpose">用途説明</label>
-        <input type="text" id="tmpl-purpose" data-tmpl="purpose" placeholder="実験で使用いたしますので">
+        <input type="text" id="tmpl-purpose" data-tmpl="purpose">
       </div>
       <div class="field">
         <label for="tmpl-signature">署名（任意）</label>
-        <textarea id="tmpl-signature" data-tmpl="signature" placeholder="〇〇大学大学院&#10;△△研究科&#10;xx@example.ac.jp"></textarea>
+        <textarea id="tmpl-signature" data-tmpl="signature"></textarea>
       </div>
       <p class="saved-state" id="saved-state">自動保存</p>
     </div>
@@ -596,13 +655,34 @@
     </div>
     <div class="field">
       <label for="ed-cat">カテゴリ</label>
-      <input type="text" id="ed-cat" list="cat-options" autocomplete="off" placeholder="例：ラボ消耗品">
-      <datalist id="cat-options"></datalist>
+      <select id="ed-cat"></select>
+    </div>
+    <div class="field" id="ed-newcat-field" hidden>
+      <label for="ed-newcat">新しいカテゴリ名<span class="req">*</span></label>
+      <input type="text" id="ed-newcat" autocomplete="off">
     </div>
     <div class="dialog-actions">
       <button type="button" class="btn btn-danger" id="ed-delete">削除</button>
       <span class="spacer"></span>
       <button type="button" class="btn btn-ghost" id="ed-cancel">キャンセル</button>
+      <button type="submit" class="btn btn-primary">保存</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- カテゴリ編集 -->
+<dialog class="editor" id="cat-editor" aria-labelledby="cat-editor-title">
+  <form id="cat-editor-form" novalidate>
+    <h2 id="cat-editor-title">カテゴリを編集</h2>
+    <div class="field">
+      <label for="cat-name">カテゴリ名</label>
+      <input type="text" id="cat-name" required autocomplete="off">
+    </div>
+    <p class="fine" id="cat-editor-note" style="margin: -4px 2px 16px"></p>
+    <div class="dialog-actions">
+      <button type="button" class="btn btn-danger" id="cat-delete">削除</button>
+      <span class="spacer"></span>
+      <button type="button" class="btn btn-ghost" id="cat-cancel">キャンセル</button>
       <button type="submit" class="btn btn-primary">保存</button>
     </div>
   </form>
@@ -629,13 +709,16 @@
     { id: '13', category: '日用品',     name: 'アルカリ乾電池 単4', code: '34911177', vol: '1箱(40本)', url: 'https://www.monotaro.com/p/3491/1177/' },
     { id: '14', category: 'ラボ消耗品', name: '15mL チューブ', code: '35589443', vol: '1ケース(50本)', url: 'https://www.monotaro.com/p/3558/9443/' },
   ];
+  const DEFAULT_CATEGORIES = ['ラボ消耗品', '試薬', '日用品'];
   const CATALOG_VERSION = 2;
-  const UNCATEGORIZED = 'その他';
+  const UNCATEGORIZED = '未分類';
+  const NEW_CAT = '__new__';
 
-  const DEFAULT_TEMPLATE = { to: '', cc: '', sender: '', grade: '', purpose: '実験で使用いたしますので', signature: '' };
+  const DEFAULT_TEMPLATE = { to: '', cc: '', sender: '', grade: '', purpose: '', signature: '' };
 
   const KEY = {
     products: 'ogizon-products',
+    categories: 'ogizon-categories',
     template: 'ogizon-template',
     version: 'ogizon-catalog-version',
     selection: 'ogizon-selection',
@@ -651,6 +734,7 @@
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
   };
   const clone = (o) => JSON.parse(JSON.stringify(o));
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
 
   function loadProducts() {
     const stored = store.get(KEY.products, null);
@@ -673,20 +757,38 @@
     return stored;
   }
 
-  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+  function loadCategories() {
+    const stored = store.get(KEY.categories, null);
+    if (Array.isArray(stored)) return stored.filter(c => typeof c === 'string').map(c => c.trim());
+    // 初回: 商品に付いている順 → 標準カテゴリ
+    const list = products.map(p => (p.category || '').trim()).filter(Boolean);
+    return [...new Set([...list, ...DEFAULT_CATEGORIES])];
+  }
 
   let products = loadProducts();
+  let categories = loadCategories();
   let tmpl = Object.assign({}, DEFAULT_TEMPLATE, store.get(KEY.template, {}) || {});
   let selections = store.get(KEY.selection, {}) || {};
   let lastOrder = store.get(KEY.lastOrder, null);
+  let lastCategory = null;
   let query = '';
 
   const saveProducts = () => { store.set(KEY.products, products); store.set(KEY.version, CATALOG_VERSION); };
+  const saveCategories = () => store.set(KEY.categories, categories);
   const saveTemplate = () => store.set(KEY.template, tmpl);
   const saveSelection = () => store.set(KEY.selection, selections);
 
-  saveProducts();
-  pruneSelection();
+  // 商品に付いているカテゴリが必ずカテゴリ一覧にあるようにする
+  function syncCategories() {
+    const seen = new Set();
+    categories = categories.filter(c => c && c !== UNCATEGORIZED && !seen.has(c) && seen.add(c));
+    for (const p of products) {
+      const c = (p.category || '').trim();
+      if (c === UNCATEGORIZED) p.category = '';
+      else if (c && !seen.has(c)) { seen.add(c); categories.push(c); }
+    }
+    saveCategories();
+  }
 
   function pruneSelection() {
     const ids = new Set(products.map(p => p.id));
@@ -698,6 +800,10 @@
     saveSelection();
   }
 
+  syncCategories();
+  saveProducts();
+  pruneSelection();
+
   // ===== Helpers =====
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
@@ -706,6 +812,7 @@
     .replace(/[ぁ-ゖ]/g, c => String.fromCharCode(c.charCodeAt(0) + 0x60))
     .replace(/\s+/g, '');
   const catOf = (p) => (p.category || '').trim() || UNCATEGORIZED;
+  const countIn = (cat) => products.filter(p => catOf(p) === cat).length;
   const pad = (n) => String(n).padStart(2, '0');
   const today = () => { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; };
   function fmtDate(iso) {
@@ -725,6 +832,8 @@
     history: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
     external: '<path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
     chevron: '<path d="M9 6l6 6-6 6"/>',
+    up: '<path d="M6 15l6-6 6 6"/>',
+    down: '<path d="M6 9l6 6 6-6"/>',
     box: '<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/>',
     alert: '<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>',
   };
@@ -745,19 +854,21 @@
   // 2回タップで確定するボタン（誤操作防止）
   function armedAction(btn, armedLabel, action) {
     if (btn.classList.contains('armed')) {
-      clearTimeout(btn._armTimer);
-      btn.classList.remove('armed');
-      btn.textContent = btn._label;
+      disarm(btn);
       action();
       return;
     }
     btn._label = btn.textContent;
     btn.classList.add('armed');
     btn.textContent = armedLabel;
-    btn._armTimer = setTimeout(() => { btn.classList.remove('armed'); btn.textContent = btn._label; }, 3000);
+    btn._armTimer = setTimeout(() => disarm(btn), 3000);
+  }
+  function disarm(btn) {
+    clearTimeout(btn._armTimer);
+    if (btn.classList.contains('armed')) { btn.classList.remove('armed'); btn.textContent = btn._label; }
   }
 
-  // カテゴリ順 = リスト内で最初に登場した順
+  // カテゴリ一覧の順に並べる（未分類は最後）
   function grouped(list) {
     const map = new Map();
     for (const p of list) {
@@ -765,16 +876,24 @@
       if (!map.has(c)) map.set(c, []);
       map.get(c).push(p);
     }
-    const order = [...new Set(products.map(catOf))];
-    return [...map.entries()].sort((a, b) => {
-      if (a[0] === UNCATEGORIZED) return 1;
-      if (b[0] === UNCATEGORIZED) return -1;
-      return order.indexOf(a[0]) - order.indexOf(b[0]);
-    });
+    const rank = (c) => c === UNCATEGORIZED ? 1e9 : (categories.includes(c) ? categories.indexOf(c) : 1e8);
+    return [...map.entries()].sort((a, b) => rank(a[0]) - rank(b[0]));
   }
   const orderedSelected = () => grouped(products).flatMap(([, items]) => items).filter(p => selections[p.id]);
 
+  function renderAll() {
+    renderManageList(); renderCatList(); renderCatalog(); updateSummary();
+  }
+
   // ===== Catalog =====
+  const scrollBox = $('#catalog-scroll');
+  function updateFade() {
+    const more = scrollBox.scrollTop + scrollBox.clientHeight < scrollBox.scrollHeight - 4;
+    $('.catalog').classList.toggle('more-below', more);
+  }
+  scrollBox.addEventListener('scroll', updateFade, { passive: true });
+  window.addEventListener('resize', updateFade);
+
   function renderCatalog() {
     const el = $('#catalog-list');
     $('#catalog-count').textContent = `${products.length}品目`;
@@ -782,21 +901,18 @@
     if (!products.length) {
       el.innerHTML = `<div class="empty">${ic('box', 36, 1.6)}<div>商品がまだありません</div>
         <button class="btn btn-primary btn-sm" data-action="add">${ic('plus', 16)}<span>商品を追加</span></button></div>`;
-      return;
+    } else {
+      const q = norm(query);
+      const visible = q ? products.filter(p => norm(`${p.name} ${p.code} ${p.vol} ${catOf(p)}`).includes(q)) : products;
+      el.innerHTML = visible.length
+        ? grouped(visible).map(([cat, items]) => `
+          <div class="group">
+            <div class="group-head">${esc(cat)}<span class="n">${items.length}</span></div>
+            ${items.map(itemHTML).join('')}
+          </div>`).join('')
+        : `<div class="empty">${ic('search', 32, 1.6)}<div>「${esc(query)}」に一致する商品はありません</div></div>`;
     }
-
-    const q = norm(query);
-    const visible = q ? products.filter(p => norm(`${p.name} ${p.code} ${p.vol} ${catOf(p)}`).includes(q)) : products;
-    if (!visible.length) {
-      el.innerHTML = `<div class="empty">${ic('search', 32, 1.6)}<div>「${esc(query)}」に一致する商品はありません</div></div>`;
-      return;
-    }
-
-    el.innerHTML = grouped(visible).map(([cat, items]) => `
-      <div class="group">
-        <div class="group-head">${esc(cat)}<span class="n">${items.length}</span></div>
-        ${items.map(itemHTML).join('')}
-      </div>`).join('');
+    updateFade();
   }
 
   function itemHTML(p) {
@@ -879,7 +995,7 @@
   });
   list.addEventListener('focusin', (e) => { if (e.target.matches('[data-qty]')) e.target.select(); });
 
-  $('#search').addEventListener('input', (e) => { query = e.target.value; renderCatalog(); });
+  $('#search').addEventListener('input', (e) => { query = e.target.value; scrollBox.scrollTop = 0; renderCatalog(); });
 
   $('#clear-sel').addEventListener('click', () => {
     selections = {};
@@ -893,6 +1009,7 @@
     selections = {};
     for (const [id, qty] of lastOrder.items) if (ids.has(id)) selections[id] = qty;
     query = ''; $('#search').value = '';
+    scrollBox.scrollTop = 0;
     renderCatalog(); updateSummary();
     toast(`前回（${fmtDate(lastOrder.date)}）と同じ${Object.keys(selections).length}点を選択しました`);
   });
@@ -911,6 +1028,7 @@
     $('#repeat-last').hidden = !lastOrder || count > 0;
     updateBottomBar();
     renderMail();
+    updateFade();
   }
 
   function buildMail() {
@@ -927,9 +1045,9 @@
     const cc = tmpl.cc || '（CC）';
     const name = tmpl.sender || '（名前）';
     const senderFull = `${tmpl.grade ? tmpl.grade + ' ' : ''}${name}`;
-    const purpose = tmpl.purpose || DEFAULT_TEMPLATE.purpose;
+    const request = `${tmpl.purpose ? tmpl.purpose + '、' : ''}以下の備品の購入をお願いいたします。`;
     const sig = tmpl.signature ? `--\n${tmpl.signature}` : '';
-    return `${to}\nCc ${cc}\n\nお世話になっております。${senderFull}です。\n${purpose}、以下の備品の購入をお願いいたします。\n\n${items}\n\n以上，よろしくお願いいたします．\n${name}\n${sig}`;
+    return `${to}\nCc ${cc}\n\nお世話になっております。${senderFull}です。\n${request}\n\n${items}\n\n以上，よろしくお願いいたします．\n${name}\n${sig}`;
   }
 
   function renderMail() {
@@ -966,7 +1084,9 @@
     store.set(KEY.lastOrder, lastOrder);
     for (const p of products) if (selections[p.id]) p.lastOrdered = date;
     saveProducts();
+    const top = scrollBox.scrollTop;
     renderCatalog();
+    scrollBox.scrollTop = top;
 
     for (const btn of [$('#copy-btn'), $('#bb-copy')]) {
       const label = $('span', btn);
@@ -1004,6 +1124,7 @@
     lastFocus = document.activeElement;
     selectTab(tab);
     renderManageList();
+    renderCatList();
     fillTemplateForm();
     sheet.classList.add('open');
     $('#sheet-backdrop').classList.add('open');
@@ -1030,7 +1151,7 @@
     if (t) openSettings(t.dataset.openTab);
   });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && sheet.classList.contains('open') && !$('#editor').open) closeSettings();
+    if (e.key === 'Escape' && sheet.classList.contains('open') && !$('#editor').open && !$('#cat-editor').open) closeSettings();
   });
 
   function renderManageList() {
@@ -1055,6 +1176,110 @@
   });
   $('#add-product').addEventListener('click', () => openEditor());
 
+  // ===== Categories =====
+  function validateCatName(name, exceptIndex = -1) {
+    if (!name) return 'カテゴリ名を入力してください';
+    if (name === UNCATEGORIZED || name === NEW_CAT) return `「${UNCATEGORIZED}」は使えません`;
+    const i = categories.indexOf(name);
+    if (i !== -1 && i !== exceptIndex) return `「${name}」はすでにあります`;
+    return '';
+  }
+
+  function renderCatList() {
+    const el = $('#cat-list');
+    const rows = categories.map((c, i) => `
+      <div class="cat-row">
+        <button class="cat-main" data-cat-edit="${i}">
+          <span class="cat-name">${esc(c)}</span>
+          <span class="cat-count">${countIn(c)}品目</span>
+        </button>
+        <button class="mini-btn" data-cat-move="-1" data-i="${i}" aria-label="「${esc(c)}」を上へ" ${i === 0 ? 'disabled' : ''}>${ic('up', 18)}</button>
+        <button class="mini-btn" data-cat-move="1" data-i="${i}" aria-label="「${esc(c)}」を下へ" ${i === categories.length - 1 ? 'disabled' : ''}>${ic('down', 18)}</button>
+      </div>`).join('');
+    const unc = countIn(UNCATEGORIZED);
+    el.innerHTML = (categories.length
+      ? `<div class="list-card">${rows}</div>`
+      : `<p class="fine" style="text-align:center;margin-top:20px">カテゴリがありません</p>`)
+      + (unc ? `<p class="fine">${UNCATEGORIZED}の商品：${unc}品目</p>` : '');
+  }
+
+  $('#cat-add-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = $('#cat-add-input');
+    const name = input.value.trim();
+    const err = validateCatName(name);
+    if (err) { toast(err, 'error'); input.focus(); return; }
+    categories.push(name);
+    saveCategories();
+    input.value = '';
+    renderAll();
+    toast(`カテゴリ「${name}」を追加しました`);
+  });
+
+  $('#cat-list').addEventListener('click', (e) => {
+    const mv = e.target.closest('[data-cat-move]');
+    if (mv) {
+      const i = Number(mv.dataset.i), j = i + Number(mv.dataset.catMove);
+      if (j < 0 || j >= categories.length) return;
+      [categories[i], categories[j]] = [categories[j], categories[i]];
+      saveCategories();
+      renderAll();
+      $(`[data-cat-move="${mv.dataset.catMove}"][data-i="${j}"]`)?.focus();
+      return;
+    }
+    const b = e.target.closest('[data-cat-edit]');
+    if (b) openCatEditor(Number(b.dataset.catEdit));
+  });
+
+  const catEditor = $('#cat-editor');
+  let editingCat = -1;
+  function openCatEditor(i) {
+    editingCat = i;
+    const name = categories[i];
+    const n = countIn(name);
+    $('#cat-name').value = name;
+    $('#cat-name').setCustomValidity('');
+    $('#cat-editor-note').textContent = n
+      ? `${n}品目の商品が入っています。削除すると、その商品は「${UNCATEGORIZED}」に移ります。`
+      : 'このカテゴリに商品はありません。';
+    disarm($('#cat-delete'));
+    catEditor.showModal();
+  }
+  $('#cat-cancel').addEventListener('click', () => catEditor.close());
+  catEditor.addEventListener('click', (e) => { if (e.target === catEditor) catEditor.close(); });
+  $('#cat-name').addEventListener('input', (e) => e.target.setCustomValidity(''));
+
+  $('#cat-editor-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = $('#cat-name');
+    const oldName = categories[editingCat];
+    const name = input.value.trim();
+    input.setCustomValidity(validateCatName(name, editingCat));
+    if (!e.target.reportValidity()) return;
+    if (name !== oldName) {
+      categories[editingCat] = name;
+      for (const p of products) if ((p.category || '').trim() === oldName) p.category = name;
+      if (lastCategory === oldName) lastCategory = name;
+      saveCategories(); saveProducts();
+      toast(`「${oldName}」を「${name}」に変更しました`);
+    }
+    catEditor.close();
+    renderAll();
+  });
+
+  $('#cat-delete').addEventListener('click', (e) => {
+    armedAction(e.currentTarget, 'もう一度タップで削除', () => {
+      const name = categories[editingCat];
+      categories.splice(editingCat, 1);
+      for (const p of products) if ((p.category || '').trim() === name) p.category = '';
+      if (lastCategory === name) lastCategory = null;
+      saveCategories(); saveProducts();
+      catEditor.close();
+      renderAll();
+      toast(`カテゴリ「${name}」を削除しました`);
+    });
+  });
+
   // ===== Template form =====
   function fillTemplateForm() {
     $$('[data-tmpl]').forEach(el => { el.value = tmpl[el.dataset.tmpl] || ''; });
@@ -1069,21 +1294,37 @@
     savedTimer = setTimeout(() => { s.textContent = '自動保存'; s.classList.remove('flash'); }, 1400);
   }));
 
-  // ===== Editor =====
+  // ===== Product editor =====
   const editor = $('#editor');
-  const ed = { name: $('#ed-name'), code: $('#ed-code'), vol: $('#ed-vol'), url: $('#ed-url'), category: $('#ed-cat') };
+  const ed = { name: $('#ed-name'), code: $('#ed-code'), vol: $('#ed-vol'), url: $('#ed-url') };
+  const edCat = $('#ed-cat');
+  const edNewCat = $('#ed-newcat');
   let editingId = null;
+
+  function fillCategorySelect(selected) {
+    edCat.innerHTML = categories.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('')
+      + `<option value="">${UNCATEGORIZED}</option>`
+      + `<option value="${NEW_CAT}">＋ 新しいカテゴリを作る…</option>`;
+    edCat.value = selected;
+    if (edCat.value !== selected) edCat.value = '';
+    toggleNewCat();
+  }
+  function toggleNewCat() {
+    const on = edCat.value === NEW_CAT;
+    $('#ed-newcat-field').hidden = !on;
+    if (!on) { edNewCat.value = ''; edNewCat.setCustomValidity(''); }
+  }
+  edCat.addEventListener('change', () => { toggleNewCat(); if (edCat.value === NEW_CAT) edNewCat.focus(); });
 
   function openEditor(id = null) {
     editingId = id;
     const p = id ? products.find(x => x.id === id) : null;
     $('#editor-title').textContent = p ? '商品を編集' : '商品を追加';
     for (const k of Object.keys(ed)) { ed[k].value = p ? (p[k] || '') : ''; ed[k].setCustomValidity(''); }
-    $('#cat-options').innerHTML = [...new Set(products.map(x => (x.category || '').trim()).filter(Boolean))]
-      .map(c => `<option value="${esc(c)}">`).join('');
+    fillCategorySelect(p ? (p.category || '').trim() : (lastCategory ?? categories[0] ?? ''));
     const del = $('#ed-delete');
     del.hidden = !p;
-    del.classList.remove('armed'); del.textContent = '削除'; clearTimeout(del._armTimer);
+    disarm(del);
     editor.showModal();
     if (!p) ed.name.focus();
   }
@@ -1097,7 +1338,21 @@
     ed.name.setCustomValidity(v.name ? '' : '商品名を入力してください');
     const dup = products.find(p => p.code === v.code && p.id !== editingId);
     ed.code.setCustomValidity(!v.code ? '注文コードを入力してください' : dup ? `「${dup.name}」と同じ注文コードです` : '');
+    let category = edCat.value;
+    const newName = edNewCat.value.trim();
+    if (category === NEW_CAT) {
+      const err = validateCatName(newName);
+      // 既にあるカテゴリ名なら、それを使う
+      edNewCat.setCustomValidity(err && !categories.includes(newName) ? err : '');
+    }
     if (!e.target.reportValidity()) return;
+
+    if (category === NEW_CAT) {
+      category = newName;
+      if (!categories.includes(category)) { categories.push(category); saveCategories(); }
+    }
+    v.category = category;
+    lastCategory = category;
 
     if (editingId) {
       Object.assign(products.find(p => p.id === editingId), v);
@@ -1108,9 +1363,9 @@
     }
     saveProducts();
     editor.close();
-    renderManageList(); renderCatalog(); updateSummary();
+    renderAll();
   });
-  Object.values(ed).forEach(el => el.addEventListener('input', () => el.setCustomValidity('')));
+  [...Object.values(ed), edNewCat].forEach(el => el.addEventListener('input', () => el.setCustomValidity('')));
 
   $('#ed-delete').addEventListener('click', (e) => {
     armedAction(e.currentTarget, 'もう一度タップで削除', () => {
@@ -1119,7 +1374,7 @@
       delete selections[editingId];
       saveProducts();
       editor.close();
-      renderManageList(); renderCatalog(); updateSummary();
+      renderAll();
       toast(`「${p?.name ?? '商品'}」を削除しました`);
     });
   });
@@ -1128,7 +1383,7 @@
   $('#default-count').textContent = DEFAULT_PRODUCTS.length;
 
   $('#export-btn').addEventListener('click', () => {
-    const data = { app: 'ogizon', version: CATALOG_VERSION, exportedAt: new Date().toISOString(), products, template: tmpl };
+    const data = { app: 'ogizon', version: CATALOG_VERSION, exportedAt: new Date().toISOString(), products, categories, template: tmpl };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -1144,19 +1399,20 @@
     if (!file) return;
     try {
       const data = JSON.parse(await file.text());
-      const list = Array.isArray(data) ? data : data.products;
-      if (!Array.isArray(list) || !list.every(p => p && typeof p.name === 'string' && p.code != null)) throw new Error('bad');
-      products = list.map(p => ({
+      const items = Array.isArray(data) ? data : data.products;
+      if (!Array.isArray(items) || !items.every(p => p && typeof p.name === 'string' && p.code != null)) throw new Error('bad');
+      products = items.map(p => ({
         id: String(p.id ?? uid()), name: p.name, code: String(p.code),
         vol: p.vol || '', url: p.url || '', category: p.category || '',
         ...(p.lastOrdered ? { lastOrdered: p.lastOrdered } : {}),
       }));
+      categories = Array.isArray(data.categories) ? data.categories.filter(c => typeof c === 'string').map(c => c.trim()) : [];
       if (data.template && typeof data.template === 'object') {
         tmpl = Object.assign({}, DEFAULT_TEMPLATE, data.template);
         saveTemplate(); fillTemplateForm();
       }
-      saveProducts(); pruneSelection();
-      renderManageList(); renderCatalog(); updateSummary();
+      syncCategories(); saveProducts(); pruneSelection();
+      renderAll();
       toast(`${products.length}品目を読み込みました`);
     } catch {
       toast('読み込めませんでした。Ogizonのバックアップファイルを選んでください', 'error');
@@ -1166,8 +1422,9 @@
   $('#reset-btn').addEventListener('click', (e) => {
     armedAction(e.currentTarget, '本当に戻す', () => {
       products = clone(DEFAULT_PRODUCTS);
-      saveProducts(); pruneSelection();
-      renderManageList(); renderCatalog(); updateSummary();
+      categories = clone(DEFAULT_CATEGORIES);
+      syncCategories(); saveProducts(); pruneSelection();
+      renderAll();
       toast('標準の商品リストに戻しました');
     });
   });
