@@ -410,6 +410,12 @@
   }
   dialog.editor::backdrop { background: rgba(3,7,18,.5); }
   dialog.editor[open] { animation: dialog-in .2s cubic-bezier(.32,.72,0,1); }
+  .kb-open dialog.editor[open] {
+    margin: 0 auto; bottom: auto;
+    top: calc(var(--vv-top, 0px) + 10px);
+    max-height: calc(var(--vv-h, 100dvh) - 20px);
+    overflow-y: auto; overscroll-behavior: contain;
+  }
   @keyframes dialog-in { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
   .editor form { padding: 20px; }
   .editor h2 { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
@@ -658,8 +664,8 @@
   <form id="editor-form" novalidate>
     <h2 id="editor-title">商品を追加</h2>
     <div class="field">
-      <label for="ed-name">商品名<span class="req">*</span></label>
-      <input type="text" id="ed-name" required autocomplete="off">
+      <label for="ed-item">商品名<span class="req">*</span></label>
+      <input type="text" id="ed-item" required autocomplete="off" autocorrect="off" data-form-type="other" data-lpignore="true">
     </div>
     <div class="field-row">
       <div class="field">
@@ -697,8 +703,8 @@
   <form id="cat-editor-form" novalidate>
     <h2 id="cat-editor-title">カテゴリを編集</h2>
     <div class="field">
-      <label for="cat-name">カテゴリ名</label>
-      <input type="text" id="cat-name" required autocomplete="off">
+      <label for="cat-title">カテゴリ名</label>
+      <input type="text" id="cat-title" required autocomplete="off" data-form-type="other">
     </div>
     <p class="fine" id="cat-editor-note" style="margin: -4px 2px 16px"></p>
     <div class="dialog-actions">
@@ -1321,8 +1327,8 @@
     editingCat = i;
     const name = categories[i];
     const n = countIn(name);
-    $('#cat-name').value = name;
-    $('#cat-name').setCustomValidity('');
+    $('#cat-title').value = name;
+    $('#cat-title').setCustomValidity('');
     $('#cat-editor-note').textContent = n
       ? `${n}品目の商品が入っています。削除すると、その商品は「${UNCATEGORIZED}」に移ります。`
       : 'このカテゴリに商品はありません。';
@@ -1331,11 +1337,11 @@
   }
   $('#cat-cancel').addEventListener('click', () => catEditor.close());
   catEditor.addEventListener('click', (e) => { if (e.target === catEditor) catEditor.close(); });
-  $('#cat-name').addEventListener('input', (e) => e.target.setCustomValidity(''));
+  $('#cat-title').addEventListener('input', (e) => e.target.setCustomValidity(''));
 
   $('#cat-editor-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    const input = $('#cat-name');
+    const input = $('#cat-title');
     const oldName = categories[editingCat];
     const name = input.value.trim();
     input.setCustomValidity(validateCatName(name, editingCat));
@@ -1380,7 +1386,7 @@
 
   // ===== Product editor =====
   const editor = $('#editor');
-  const ed = { name: $('#ed-name'), code: $('#ed-code'), vol: $('#ed-vol'), url: $('#ed-url') };
+  const ed = { name: $('#ed-item'), code: $('#ed-code'), vol: $('#ed-vol'), url: $('#ed-url') };
   const edCat = $('#ed-cat');
   const edNewCat = $('#ed-newcat');
   let editingId = null;
@@ -1512,6 +1518,30 @@
       toast('標準の商品リストに戻しました');
     });
   });
+
+  // ===== キーボード対策（iPhone） =====
+  // キーボードが出ると見えている範囲(visualViewport)が縮むので、ダイアログをその上端に寄せる
+  const vv = window.visualViewport;
+  function fitToKeyboard() {
+    if (!vv) return;
+    const root = document.documentElement;
+    const open = window.innerHeight - vv.height > 120;
+    root.classList.toggle('kb-open', open);
+    root.style.setProperty('--vv-top', `${vv.offsetTop}px`);
+    root.style.setProperty('--vv-h', `${vv.height}px`);
+    const active = document.activeElement;
+    if (open && active?.closest?.('dialog[open]')) {
+      requestAnimationFrame(() => active.scrollIntoView({ block: 'nearest' }));
+    }
+  }
+  if (vv) {
+    vv.addEventListener('resize', fitToKeyboard);
+    vv.addEventListener('scroll', fitToKeyboard);
+  }
+  for (const dlg of [editor, catEditor]) {
+    dlg.addEventListener('focusin', () => setTimeout(fitToKeyboard, 300));
+    dlg.addEventListener('close', () => setTimeout(fitToKeyboard, 50));
+  }
 
   // ===== Init =====
   renderCatalog();
