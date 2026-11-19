@@ -377,8 +377,12 @@
   .manage-item .ic { color: var(--faint); }
 
   .field { display: grid; gap: 6px; margin-bottom: 14px; }
-  .field label { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .field label, .field .field-label { font-size: 13px; font-weight: 600; color: var(--muted); }
   .field .req { color: var(--danger); margin-left: 2px; }
+  .field input[type="search"], .add-row input[type="search"] { -webkit-appearance: none; appearance: none; }
+  .field input[type="search"]::-webkit-search-cancel-button,
+  .field input[type="search"]::-webkit-search-decoration,
+  .add-row input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; display: none; }
   .field input, .field select, .field textarea {
     width: 100%; height: 44px; padding: 0 12px;
     border: 1px solid var(--border-strong); border-radius: 10px;
@@ -410,12 +414,19 @@
   }
   dialog.editor::backdrop { background: rgba(3,7,18,.5); }
   dialog.editor[open] { animation: dialog-in .2s cubic-bezier(.32,.72,0,1); }
-  .kb-open dialog.editor[open] {
-    margin: 0 auto; bottom: auto;
-    top: calc(var(--vv-top, 0px) + 10px);
-    max-height: calc(var(--vv-h, 100dvh) - 20px);
-    overflow-y: auto; overscroll-behavior: contain;
+  @media (max-width: 700px), (pointer: coarse) {
+    dialog.editor[open] {
+      margin: 0 auto; inset: 0 0 auto 0;
+      top: calc(var(--vv-top, 0px) + 10px);
+      max-height: calc(var(--vv-h, 100dvh) - 20px);
+      overflow-y: auto; overscroll-behavior: contain;
+      animation-name: dialog-drop;
+    }
+    .editor form { padding: 16px 16px 14px; }
+    .editor h2 { margin-bottom: 12px; }
+    .editor .field { margin-bottom: 11px; }
   }
+  @keyframes dialog-drop { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
   @keyframes dialog-in { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
   .editor form { padding: 20px; }
   .editor h2 { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
@@ -583,7 +594,7 @@
 
     <div data-panel="categories" hidden>
       <form class="add-row" id="cat-add-form">
-        <input type="text" id="cat-add-input" placeholder="新しいカテゴリ名" autocomplete="off" aria-label="新しいカテゴリ名" enterkeyhint="done">
+        <input type="search" id="cat-add-input" placeholder="新しいカテゴリ" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="新しいカテゴリ" enterkeyhint="done" data-form-type="other">
         <button type="submit" class="btn btn-primary" data-icon="plus" data-size="16"><span>追加</span></button>
       </form>
       <div id="cat-list"></div>
@@ -654,6 +665,7 @@
         </div>
       </div>
       <p class="fine">データはこの端末のブラウザ内にだけ保存されます。別の端末で使うときはバックアップを書き出して読み込んでください。</p>
+      <p class="fine">Ogizon バージョン <span id="app-version"></span></p>
     </div>
 
   </div>
@@ -664,17 +676,17 @@
   <form id="editor-form" novalidate>
     <h2 id="editor-title">商品を追加</h2>
     <div class="field">
-      <label for="ed-item">商品名<span class="req">*</span></label>
-      <input type="text" id="ed-item" required autocomplete="off" autocorrect="off" data-form-type="other" data-lpignore="true">
+      <div class="field-label" aria-hidden="true">商品名<span class="req">*</span></div>
+      <input type="search" id="ed-item" required autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="next" aria-label="商品" data-form-type="other" data-lpignore="true">
     </div>
     <div class="field-row">
       <div class="field">
         <label for="ed-code">注文コード<span class="req">*</span></label>
-        <input type="text" id="ed-code" required autocomplete="off" inputmode="text">
+        <input type="search" id="ed-code" required autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="next" data-form-type="other">
       </div>
       <div class="field">
         <label for="ed-vol">内容量</label>
-        <input type="text" id="ed-vol" autocomplete="off" placeholder="例：1箱(100枚)">
+        <input type="search" id="ed-vol" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" placeholder="例：1箱(100枚)" data-form-type="other">
       </div>
     </div>
     <div class="field">
@@ -686,8 +698,8 @@
       <select id="ed-cat"></select>
     </div>
     <div class="field" id="ed-newcat-field" hidden>
-      <label for="ed-newcat">新しいカテゴリ名<span class="req">*</span></label>
-      <input type="text" id="ed-newcat" autocomplete="off">
+      <div class="field-label" aria-hidden="true">新しいカテゴリ<span class="req">*</span></div>
+      <input type="search" id="ed-newcat" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="done" aria-label="新しいカテゴリ" data-form-type="other">
     </div>
     <div class="dialog-actions">
       <button type="button" class="btn btn-danger" id="ed-delete">削除</button>
@@ -703,8 +715,8 @@
   <form id="cat-editor-form" novalidate>
     <h2 id="cat-editor-title">カテゴリを編集</h2>
     <div class="field">
-      <label for="cat-title">カテゴリ名</label>
-      <input type="text" id="cat-title" required autocomplete="off" data-form-type="other">
+      <div class="field-label" aria-hidden="true">カテゴリ</div>
+      <input type="search" id="cat-title" required autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="done" aria-label="カテゴリ" data-form-type="other">
     </div>
     <p class="fine" id="cat-editor-note" style="margin: -4px 2px 16px"></p>
     <div class="dialog-actions">
@@ -738,6 +750,7 @@
     { id: '14', category: 'ラボ消耗品', name: '15mL チューブ', code: '35589443', vol: '1ケース(50本)', url: 'https://www.monotaro.com/p/3558/9443/' },
   ];
   const DEFAULT_CATEGORIES = ['ラボ消耗品', '試薬', '日用品'];
+  const APP_VERSION = '2026.11.19-7';
   const CATALOG_VERSION = 2;
   const UNCATEGORIZED = '未分類';
   const NEW_CAT = '__new__';
@@ -1471,6 +1484,7 @@
 
   // ===== Data =====
   $('#default-count').textContent = DEFAULT_PRODUCTS.length;
+  $('#app-version').textContent = APP_VERSION;
 
   $('#export-btn').addEventListener('click', () => {
     const data = { app: 'ogizon', version: CATALOG_VERSION, exportedAt: new Date().toISOString(), products, categories, template: tmpl };
@@ -1522,15 +1536,14 @@
   // ===== キーボード対策（iPhone） =====
   // キーボードが出ると見えている範囲(visualViewport)が縮むので、ダイアログをその上端に寄せる
   const vv = window.visualViewport;
+  // 見えている範囲（キーボードを除いた部分）の位置と高さを CSS に渡す
   function fitToKeyboard() {
     if (!vv) return;
     const root = document.documentElement;
-    const open = window.innerHeight - vv.height > 120;
-    root.classList.toggle('kb-open', open);
-    root.style.setProperty('--vv-top', `${vv.offsetTop}px`);
+    root.style.setProperty('--vv-top', `${Math.max(0, vv.offsetTop)}px`);
     root.style.setProperty('--vv-h', `${vv.height}px`);
     const active = document.activeElement;
-    if (open && active?.closest?.('dialog[open]')) {
+    if (active?.closest?.('dialog[open]')) {
       requestAnimationFrame(() => active.scrollIntoView({ block: 'nearest' }));
     }
   }
