@@ -2,513 +2,1177 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Ogizon</title>
+<meta name="theme-color" content="#131921">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Ogizon">
 <link rel="apple-touch-icon" href="data:image/png;base64,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">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='36' fill='%23131921'/><text x='16' y='120' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='90' fill='white' letter-spacing='-3'>Ogi</text><path d='M12 135 Q78 160 166 135' stroke='%23FF9900' stroke-width='7' fill='none' stroke-linecap='round'/><polygon points='156,123 168,135 156,147' fill='%23FF9900'/></svg>">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f3f4f6;
+    --surface: #ffffff;
+    --surface-2: #f8f9fb;
+    --border: #e6e8ec;
+    --border-strong: #d2d6dc;
+    --text: #111827;
+    --muted: #6b7280;
+    --faint: #9ca3af;
+    --brand: #131921;
+    --accent: #ff9900;
+    --accent-hover: #f08c00;
+    --accent-ink: #131921;
+    --accent-soft: #fff6e8;
+    --accent-line: #ffd9a0;
+    --accent-text: #9a5800;
+    --success: #15803d;
+    --danger: #dc2626;
+    --shadow: 0 1px 2px rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.06);
+    --shadow-lg: 0 16px 40px rgba(16,24,40,.22);
+    --radius: 14px;
+    --header-h: 56px;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b0f14; --surface: #141a21; --surface-2: #1a212a;
+      --border: #242c37; --border-strong: #334050;
+      --text: #e6edf3; --muted: #9aa6b5; --faint: #65728a;
+      --accent-soft: rgba(255,153,0,.11); --accent-line: rgba(255,153,0,.35);
+      --accent-text: #ffb84d; --success: #34c46b; --danger: #f87171;
+      --shadow: 0 1px 2px rgba(0,0,0,.3);
+      --shadow-lg: 0 16px 40px rgba(0,0,0,.55);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b0f14; --surface: #141a21; --surface-2: #1a212a;
+    --border: #242c37; --border-strong: #334050;
+    --text: #e6edf3; --muted: #9aa6b5; --faint: #65728a;
+    --accent-soft: rgba(255,153,0,.11); --accent-line: rgba(255,153,0,.35);
+    --accent-text: #ffb84d; --success: #34c46b; --danger: #f87171;
+    --shadow: 0 1px 2px rgba(0,0,0,.3);
+    --shadow-lg: 0 16px 40px rgba(0,0,0,.55);
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
-    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-    background: #f0f4f8; color: #1a202c; min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Helvetica Neue", "Segoe UI", Meiryo, sans-serif;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; font-size: 15px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
   }
+  body.no-scroll { overflow: hidden; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  [hidden] { display: none !important; }
+  .ic { flex-shrink: 0; display: block; }
 
-  /* ヘッダー */
-  header {
-    background: #131921; color: white; padding: 0 20px;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 54px; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    position: sticky; top: 0; z-index: 200;
+  /* ===== Header ===== */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--brand); color: #fff;
+    padding-top: var(--safe-top);
+    box-shadow: 0 1px 0 rgba(255,255,255,.06), 0 2px 10px rgba(0,0,0,.18);
   }
-  .logo { display: flex; flex-direction: column; line-height: 1; }
+  .topbar-inner {
+    max-width: 1120px; margin: 0 auto; height: var(--header-h);
+    padding: 0 12px 0 18px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo { display: flex; flex-direction: column; line-height: 1; color: #fff; text-decoration: none; }
   .logo-text {
-    font-size: 24px; font-weight: 900;
-    font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
-    color: white; letter-spacing: -1px;
+    font-family: "Arial Black", "Helvetica Neue", sans-serif;
+    font-size: 23px; font-weight: 900; letter-spacing: -1px;
+  }
+  .icon-btn {
+    width: 44px; height: 44px; border-radius: 12px; border: none;
+    background: transparent; color: inherit;
+    display: grid; place-items: center; transition: background .15s;
+  }
+  .icon-btn:hover { background: rgba(255,255,255,.1); }
+  .icon-btn.ghost:hover { background: var(--surface-2); }
+
+  /* ===== Layout ===== */
+  .layout {
+    max-width: 1120px; margin: 0 auto;
+    padding: 16px 12px calc(110px + var(--safe-bottom));
+    display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr);
+  }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow);
+  }
+  .card-title { font-size: 16px; font-weight: 700; letter-spacing: .01em; }
+  .muted { color: var(--muted); font-size: 13px; }
+
+  /* ===== Catalog ===== */
+  .catalog-head {
+    position: sticky; top: calc(var(--header-h) + var(--safe-top)); z-index: 5;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    border-radius: var(--radius) var(--radius) 0 0;
+    padding: 14px 14px 12px;
+  }
+  .title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .toolbar { display: flex; gap: 8px; margin-top: 10px; }
+  .search { position: relative; flex: 1; min-width: 0; }
+  .search .ic { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--faint); pointer-events: none; }
+  .search input {
+    width: 100%; height: 40px; padding: 0 12px 0 36px;
+    border: 1px solid var(--border); border-radius: 10px;
+    background: var(--surface-2); font-size: 16px;
+    transition: border-color .15s, box-shadow .15s, background .15s;
+  }
+  .search input::placeholder { color: var(--faint); }
+  .search input:focus { outline: none; border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 3px rgba(255,153,0,.22); }
+  .search input::-webkit-search-cancel-button { cursor: pointer; }
+  .chip-btn {
+    height: 40px; padding: 0 12px; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--surface);
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; white-space: nowrap; color: var(--text);
+    transition: background .15s, border-color .15s;
+  }
+  .chip-btn:hover { background: var(--surface-2); border-color: var(--border-strong); }
+  .chip-btn .ic { color: var(--muted); }
+  @media (max-width: 520px) {
+    .chip-btn .chip-label-long { display: none; }
   }
 
-  /* ハンバーガー */
-  .hamburger {
-    background: none; border: none; cursor: pointer;
-    padding: 8px; border-radius: 6px; color: white;
-    display: flex; flex-direction: column; gap: 5px;
-    transition: background 0.15s;
+  .group-head {
+    display: flex; align-items: center; gap: 8px;
+    padding: 14px 16px 6px;
+    font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: .04em;
   }
-  .hamburger:hover { background: rgba(255,255,255,0.1); }
-  .hamburger span {
-    display: block; width: 22px; height: 2px;
-    background: white; border-radius: 2px;
-    transition: all 0.25s;
-  }
-  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .hamburger.open span:nth-child(2) { opacity: 0; }
-  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .group-head .n { font-weight: 600; color: var(--faint); }
+  .group:last-child { padding-bottom: 6px; }
 
-  /* ドロワー */
-  .drawer-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.4); z-index: 150;
-    backdrop-filter: blur(2px);
+  .item {
+    display: grid; grid-template-columns: 22px minmax(0, 1fr) auto;
+    align-items: center; gap: 12px;
+    padding: 11px 14px 11px 16px; margin: 0 6px;
+    border-radius: 10px; cursor: pointer; user-select: none; -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background .15s;
+    position: relative;
   }
-  .drawer-overlay.open { display: block; }
-  .drawer {
-    position: fixed; top: 0; right: -320px; width: 300px; height: 100%;
-    background: #1a202c; z-index: 160; transition: right 0.28s cubic-bezier(0.4,0,0.2,1);
-    overflow-y: auto; padding-top: 60px;
-    box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+  .item + .item::before {
+    content: ""; position: absolute; top: 0; left: 50px; right: 12px;
+    border-top: 1px solid var(--border);
   }
-  .drawer.open { right: 0; }
-  .drawer-section {
-    padding: 20px; border-bottom: 1px solid #2d3748;
+  .item.is-selected::before, .item.is-selected + .item::before { border-color: transparent; }
+  @media (hover: hover) { .item:not(.is-selected):hover { background: var(--surface-2); } }
+  .item:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .item.is-selected { background: var(--accent-soft); }
+  .check {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 1.5px solid var(--border-strong);
+    display: grid; place-items: center; color: transparent;
+    transition: background .15s, border-color .15s, transform .15s;
   }
-  .drawer-section-title {
-    font-size: 10px; font-weight: 700; color: #718096;
-    text-transform: uppercase; letter-spacing: 0.1em;
-    margin-bottom: 14px;
+  .is-selected .check { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .item:active .check { transform: scale(.9); }
+  .item-name { font-size: 14.5px; font-weight: 500; line-height: 1.45; overflow-wrap: anywhere; }
+  .item-meta {
+    margin-top: 3px; font-size: 12px; color: var(--muted);
+    display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px;
   }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11.5px; letter-spacing: .02em; }
+  .meta-last { display: inline-flex; align-items: center; gap: 3px; color: var(--faint); }
+  .meta-link {
+    display: inline-flex; align-items: center; gap: 3px;
+    color: var(--muted); text-decoration: none; padding: 2px 0;
+  }
+  .meta-link:hover { color: var(--accent-text); text-decoration: underline; }
 
-  /* ドロワーフォーム */
-  .d-form-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
-  .d-form-group label { font-size: 11px; font-weight: 600; color: #a0aec0; }
-  .d-form-group input, .d-form-group textarea {
-    padding: 8px 10px; border: 1.5px solid #2d3748;
-    border-radius: 6px; font-size: 12px; font-family: inherit;
-    background: #2d3748; color: #e2e8f0;
-    transition: border-color 0.2s; width: 100%;
+  .stepper {
+    display: flex; align-items: center; height: 36px;
+    border: 1px solid var(--border-strong); border-radius: 10px;
+    background: var(--surface); overflow: hidden;
+    animation: pop .16s ease-out;
   }
-  .d-form-group input:focus, .d-form-group textarea:focus {
-    outline: none; border-color: #FF9900;
+  @keyframes pop { from { opacity: 0; transform: scale(.92); } to { opacity: 1; transform: none; } }
+  .stepper button {
+    width: 34px; height: 100%; border: none; background: transparent;
+    display: grid; place-items: center; color: var(--text);
   }
-  .d-form-group textarea { resize: vertical; min-height: 90px; }
-  .d-form-group input::placeholder, .d-form-group textarea::placeholder { color: #4a5568; font-size: 11px; }
+  .stepper button:hover { background: var(--surface-2); }
+  .stepper button:disabled { color: var(--faint); cursor: default; background: transparent; }
+  .stepper input {
+    width: 34px; height: 100%; border: none; background: transparent;
+    text-align: center; font-size: 16px; font-weight: 700;
+    font-variant-numeric: tabular-nums; -moz-appearance: textfield;
+  }
+  .stepper input:focus { outline: none; background: var(--surface-2); }
 
-  .d-add-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;
+  .empty {
+    padding: 40px 20px; text-align: center; color: var(--muted); font-size: 14px;
+    display: grid; justify-items: center; gap: 12px;
   }
-  .d-add-grid input {
-    padding: 8px 10px; border: 1.5px solid #2d3748;
-    border-radius: 6px; font-size: 12px; font-family: inherit;
-    background: #2d3748; color: #e2e8f0; width: 100%;
-  }
-  .d-add-grid input:focus { outline: none; border-color: #FF9900; }
-  .d-add-grid input::placeholder { color: #4a5568; font-size: 11px; }
+  .empty .ic { color: var(--faint); }
 
-  /* ドロワーボタン */
-  .btn-drawer-primary {
-    padding: 8px 14px; border: none; border-radius: 6px;
-    font-size: 12px; font-weight: 600; cursor: pointer;
-    background: #FF9900; color: #131921; width: 100%;
-    margin-bottom: 6px; transition: background 0.15s;
+  /* ===== Mail ===== */
+  .mail { padding: 16px; scroll-margin-top: calc(var(--header-h) + var(--safe-top) + 12px); }
+  .mail-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .count-pill {
+    font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+    background: var(--surface-2); color: var(--muted); border: 1px solid var(--border);
+    font-variant-numeric: tabular-nums;
   }
-  .btn-drawer-primary:hover { background: #e68900; }
-  .btn-drawer-save {
-    padding: 8px 14px; border: none; border-radius: 6px;
-    font-size: 12px; font-weight: 600; cursor: pointer;
-    background: #276749; color: white; width: 100%;
-    transition: background 0.15s;
+  .count-pill.on { background: var(--accent-soft); color: var(--accent-text); border-color: var(--accent-line); }
+  .setup-hint {
+    margin-top: 12px; padding: 10px 12px; border-radius: 10px;
+    background: var(--accent-soft); border: 1px solid var(--accent-line);
+    font-size: 13px; color: var(--accent-text);
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
   }
-  .btn-drawer-save:hover { background: #22543d; }
-
-  /* 商品リスト（ドロワー内） */
-  .drawer-product-item {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 8px 0; border-bottom: 1px solid #2d3748; font-size: 12px; color: #e2e8f0;
+  .link-btn {
+    background: none; border: none; color: var(--accent-text);
+    font-weight: 700; font-size: 13px; text-decoration: underline; text-underline-offset: 2px;
+    white-space: nowrap; padding: 4px 0;
   }
-  .drawer-product-item:last-child { border-bottom: none; }
-  .drawer-product-name { flex: 1; line-height: 1.4; }
-  .drawer-product-code { font-size: 10px; color: #718096; margin-top: 2px; }
-  .btn-del {
-    background: none; border: 1px solid #e53e3e; color: #e53e3e;
-    border-radius: 4px; padding: 3px 8px; font-size: 10px; cursor: pointer;
-    flex-shrink: 0; margin-left: 8px;
-  }
-  .btn-del:hover { background: #742a2a; }
-
-  .save-notice {
-    font-size: 11px; color: #68d391; font-weight: 600;
-    text-align: center; display: block; margin-top: 6px;
-    opacity: 0; transition: opacity 0.3s;
-  }
-  .save-notice.show { opacity: 1; }
-
-  /* メインコンテナ */
-  .container { max-width: 860px; margin: 0 auto; padding: 20px 16px; }
-
-  .section {
-    background: white; border-radius: 10px; padding: 20px;
-    margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  }
-  .section-title {
-    font-size: 13px; font-weight: 700; color: #1a365d;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    margin-bottom: 14px; padding-bottom: 10px;
-    border-bottom: 2px solid #e2e8f0;
-  }
-
-  /* 発注選択 */
-  .order-row {
-    display: flex; align-items: center; gap: 12px;
-    padding: 10px 0; border-bottom: 1px solid #f0f0f0;
-  }
-  .order-row:last-child { border-bottom: none; }
-  .order-check { width: 18px; height: 18px; cursor: pointer; accent-color: #2b6cb0; flex-shrink: 0; }
-  .order-name { flex: 2; font-size: 13px; line-height: 1.4; }
-  .order-code { flex: 1; font-size: 11px; color: #718096; }
-  .order-qty { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
-  .qty-disabled { opacity: 0.3; pointer-events: none; touch-action: none; }
-  .qty-btn {
-    width: 28px; height: 28px; border: 1.5px solid #cbd5e0;
-    background: white; border-radius: 4px; font-size: 18px;
-    cursor: pointer; display: flex; align-items: center;
-    justify-content: center; color: #2d3748;
-  }
-  .qty-btn:hover { background: #edf2f7; }
-  .qty-input {
-    width: 50px; text-align: center; padding: 4px;
-    border: 1.5px solid #cbd5e0; border-radius: 4px;
-    font-size: 13px; font-weight: 600;
-  }
-  .qty-input:focus { outline: none; border-color: #3182ce; }
-
-  /* メール */
   .mail-preview {
-    background: #f7fafc; border: 1.5px solid #e2e8f0;
-    border-radius: 8px; padding: 16px 18px;
-    font-family: Helvetica, Arial, sans-serif;
-    font-weight: 400; font-size: 12px; line-height: 1.8;
+    margin: 12px 0; padding: 14px 16px;
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+    font-family: inherit; font-size: 13px; line-height: 1.75;
     white-space: pre-wrap; word-break: break-all;
-    color: #2d3748; margin-bottom: 12px; min-height: 100px;
+    min-height: 140px; color: var(--text);
+    -webkit-user-select: text; user-select: text;
   }
-  .btn-copy {
-    background: #d69e2e; color: white; border: none;
-    font-size: 14px; font-weight: 600; padding: 12px 24px;
-    width: 100%; border-radius: 6px; cursor: pointer;
-    transition: background 0.15s;
-  }
-  .btn-copy:hover { background: #b7791f; }
-  .btn-copy.copied { background: #276749; }
-
-  .empty-state { text-align: center; color: #a0aec0; padding: 24px; font-size: 13px; }
-  .badge {
-    display: inline-block; background: #2b6cb0; color: white;
-    border-radius: 999px; font-size: 10px; font-weight: 700;
-    padding: 2px 7px; margin-left: 6px;
+  .mail-preview.is-empty {
+    display: grid; place-items: center; text-align: center;
+    color: var(--faint); font-size: 13px; line-height: 1.6;
   }
 
-  @media (max-width: 600px) {
-    .order-code { display: none; }
-    .d-add-grid { grid-template-columns: 1fr; }
+  /* ===== Buttons ===== */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    height: 46px; padding: 0 18px; border-radius: 11px;
+    border: 1px solid transparent; font-size: 15px; font-weight: 700;
+    transition: background .15s, color .15s, border-color .15s, transform .08s, opacity .15s;
+    white-space: nowrap;
+  }
+  .btn:active:not(:disabled) { transform: scale(.98); }
+  .btn:disabled { opacity: .4; cursor: not-allowed; }
+  .btn-block { width: 100%; }
+  .btn-sm { height: 36px; padding: 0 14px; font-size: 13px; border-radius: 9px; }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
+  .btn-primary.is-done, .btn-primary.is-done:hover:not(:disabled) { background: var(--success); color: #fff; }
+  .btn-ghost { background: var(--surface); border-color: var(--border-strong); color: var(--text); }
+  .btn-ghost:hover { background: var(--surface-2); }
+  .btn-danger { background: transparent; color: var(--danger); border-color: transparent; }
+  .btn-danger:hover { background: rgba(220,38,38,.08); }
+  .btn-danger.armed { background: var(--danger); color: #fff; }
+
+  /* ===== Bottom bar (mobile) ===== */
+  .bottom-bar {
+    position: fixed; z-index: 60;
+    left: 12px; right: 12px; bottom: calc(12px + var(--safe-bottom));
+    display: flex; align-items: center; gap: 8px; padding: 8px 8px 8px 16px;
+    background: var(--brand); color: #fff;
+    border-radius: 16px; box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,.08);
+    transform: translateY(calc(100% + 24px + var(--safe-bottom)));
+    transition: transform .28s cubic-bezier(.32,.72,0,1);
+  }
+  .bottom-bar.show { transform: none; }
+  .bb-summary {
+    flex: 1; min-width: 0; text-align: left; background: none; border: none; color: #fff;
+    display: flex; flex-direction: column; line-height: 1.3; padding: 2px 0;
+  }
+  .bb-summary strong { font-size: 15px; }
+  .bb-summary span { font-size: 12px; opacity: .65; }
+  .bottom-bar .btn { height: 44px; }
+
+  /* ===== Toast ===== */
+  .toast {
+    position: fixed; z-index: 400; left: 50%;
+    bottom: calc(88px + var(--safe-bottom));
+    transform: translate(-50%, 12px); opacity: 0; pointer-events: none;
+    background: #1f2937; color: #fff;
+    padding: 10px 16px; border-radius: 999px; font-size: 14px; font-weight: 600;
+    box-shadow: var(--shadow-lg); max-width: calc(100% - 32px);
+    display: flex; align-items: center; gap: 8px; width: max-content;
+    transition: opacity .2s, transform .2s;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .toast .ic { color: #4ade80; }
+  .toast.error .ic { color: #f87171; }
+
+  /* ===== Settings sheet ===== */
+  .sheet-backdrop {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(3,7,18,.45);
+    opacity: 0; pointer-events: none; transition: opacity .25s;
+  }
+  .sheet-backdrop.open { opacity: 1; pointer-events: auto; }
+  .sheet {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 210;
+    width: min(440px, 100%);
+    background: var(--bg); box-shadow: var(--shadow-lg);
+    display: flex; flex-direction: column;
+    padding-top: var(--safe-top);
+    transform: translateX(105%); visibility: hidden;
+    transition: transform .3s cubic-bezier(.32,.72,0,1), visibility 0s linear .3s;
+  }
+  .sheet.open { transform: none; visibility: visible; transition: transform .3s cubic-bezier(.32,.72,0,1), visibility 0s; }
+  .sheet-head {
+    height: var(--header-h); padding: 0 8px 0 18px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .sheet-head h2 { font-size: 17px; font-weight: 700; }
+  .tabs {
+    margin: 0 16px 4px; padding: 3px; flex-shrink: 0;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px;
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 11px;
+  }
+  .tabs button {
+    height: 34px; border: none; border-radius: 8px; background: transparent;
+    font-size: 14px; font-weight: 600; color: var(--muted);
+    transition: background .15s, color .15s;
+  }
+  .tabs button[aria-selected="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+  .sheet-body { flex: 1; overflow-y: auto; padding: 14px 16px calc(24px + var(--safe-bottom)); -webkit-overflow-scrolling: touch; }
+  .panel-note { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+
+  .list-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+  }
+  .list-label { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: .04em; margin: 18px 4px 8px; }
+  .manage-item {
+    width: 100%; text-align: left; border: none; background: transparent;
+    display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+    transition: background .15s;
+  }
+  .manage-item + .manage-item { border-top: 1px solid var(--border); }
+  .manage-item:hover { background: var(--surface-2); }
+  .manage-item .body { flex: 1; min-width: 0; }
+  .manage-item .name { font-size: 14px; font-weight: 500; line-height: 1.4; overflow-wrap: anywhere; }
+  .manage-item .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .manage-item .ic { color: var(--faint); }
+
+  .field { display: grid; gap: 6px; margin-bottom: 14px; }
+  .field label { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .field .req { color: var(--danger); margin-left: 2px; }
+  .field input, .field select, .field textarea {
+    width: 100%; height: 44px; padding: 0 12px;
+    border: 1px solid var(--border-strong); border-radius: 10px;
+    background: var(--surface); font-size: 16px;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .field textarea { height: auto; min-height: 110px; padding: 10px 12px; resize: vertical; line-height: 1.6; }
+  .field input::placeholder, .field textarea::placeholder { color: var(--faint); }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255,153,0,.22);
+  }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .saved-state { font-size: 12px; color: var(--faint); text-align: center; margin-top: 4px; transition: color .2s; }
+  .saved-state.flash { color: var(--success); }
+
+  .data-row { display: flex; align-items: center; gap: 14px; padding: 14px; }
+  .data-row + .data-row { border-top: 1px solid var(--border); }
+  .data-row .body { flex: 1; min-width: 0; }
+  .data-row strong { font-size: 14px; display: block; }
+  .data-row p { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+  .fine { font-size: 12px; color: var(--faint); margin: 12px 4px 0; line-height: 1.6; }
+
+  /* ===== Editor dialog ===== */
+  dialog.editor {
+    border: none; padding: 0; margin: auto;
+    width: min(480px, calc(100% - 24px)); max-height: calc(100dvh - 24px);
+    border-radius: 18px; background: var(--surface); color: var(--text);
+    box-shadow: var(--shadow-lg);
+  }
+  dialog.editor::backdrop { background: rgba(3,7,18,.5); }
+  dialog.editor[open] { animation: dialog-in .2s cubic-bezier(.32,.72,0,1); }
+  @keyframes dialog-in { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
+  .editor form { padding: 20px; }
+  .editor h2 { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
+  .dialog-actions { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .dialog-actions .spacer { flex: 1; }
+  .dialog-actions .btn { height: 42px; font-size: 14px; }
+
+  /* ===== Desktop ===== */
+  @media (min-width: 900px) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr) 400px; align-items: start;
+      gap: 20px; padding: 24px 20px 48px;
+    }
+    .mail {
+      position: sticky; top: calc(var(--header-h) + 24px);
+      max-height: calc(100vh - var(--header-h) - 48px);
+      display: flex; flex-direction: column;
+    }
+    .mail > * { flex-shrink: 0; }
+    .mail > .mail-preview { flex: 1 1 auto; flex-shrink: 1; overflow-y: auto; min-height: 220px; }
+    .bottom-bar { display: none; }
+    .toast { bottom: 28px; }
+    .search input { font-size: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">
-    <span class="logo-text">Ogizon</span>
-    <svg width="64" height="7" viewBox="0 0 64 7" fill="none" style="display:block;margin-top:2px">
-      <path d="M2 3 Q32 7 62 3" stroke="#FF9900" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-      <polygon points="59,1 64,3.5 59,6" fill="#FF9900"/>
-    </svg>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="./" aria-label="Ogizon ホーム">
+      <span class="logo-text">Ogizon</span>
+      <svg width="64" height="7" viewBox="0 0 64 7" fill="none" style="display:block;margin-top:2px" aria-hidden="true">
+        <path d="M2 3 Q32 7 62 3" stroke="#FF9900" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <polygon points="59,1 64,3.5 59,6" fill="#FF9900"/>
+      </svg>
+    </a>
+    <button class="icon-btn" id="open-settings" aria-label="設定を開く" data-icon="settings" data-size="22"></button>
   </div>
-  <button class="hamburger" id="hamburger">
-    <span></span><span></span><span></span>
-  </button>
 </header>
 
-<!-- ドロワー -->
-<div class="drawer-overlay" id="drawer-overlay"></div>
-<div class="drawer" id="drawer">
+<main class="layout">
+  <section class="card catalog" aria-labelledby="catalog-title">
+    <div class="catalog-head">
+      <div class="title-row">
+        <h1 class="card-title" id="catalog-title">発注する商品</h1>
+        <span class="muted" id="catalog-count"></span>
+      </div>
+      <div class="toolbar">
+        <label class="search">
+          <span data-icon="search" data-size="17"></span>
+          <input type="search" id="search" placeholder="商品名・注文コードで検索" autocomplete="off" enterkeyhint="search" aria-label="商品を検索">
+        </label>
+        <button class="chip-btn" id="repeat-last" data-icon="history" data-size="16" hidden><span>前回<span class="chip-label-long">と同じ</span></span></button>
+        <button class="chip-btn" id="clear-sel" data-icon="x" data-size="16" hidden><span>解除</span></button>
+      </div>
+    </div>
+    <div id="catalog-list"></div>
+  </section>
 
-  <!-- 商品追加 -->
-  <div class="drawer-section">
-    <div class="drawer-section-title">📦 商品を追加</div>
-    <div class="d-add-grid">
-      <input type="text" id="inp-name" placeholder="商品名">
-      <input type="text" id="inp-code" placeholder="注文コード">
-      <input type="text" id="inp-vol" placeholder="内容量">
-      <input type="text" id="inp-url" placeholder="URL">
+  <aside class="card mail" id="mail-card" aria-labelledby="mail-title">
+    <div class="mail-head">
+      <h2 class="card-title" id="mail-title">メール文章</h2>
+      <span class="count-pill" id="mail-count">0点</span>
     </div>
-    <button class="btn-drawer-primary" id="btn-add-product">＋ 追加</button>
-  </div>
+    <div class="setup-hint" id="setup-hint" hidden>
+      <span id="setup-hint-text">宛先と名前がまだ設定されていません</span>
+      <button class="link-btn" data-open-tab="mail">設定する</button>
+    </div>
+    <pre class="mail-preview" id="mail-preview"></pre>
+    <button class="btn btn-primary btn-block" id="copy-btn" data-icon="copy" disabled><span>メール文章をコピー</span></button>
+  </aside>
+</main>
 
-  <!-- 登録済み商品 -->
-  <div class="drawer-section">
-    <div class="drawer-section-title">📋 登録済み商品</div>
-    <div id="drawer-product-list"></div>
-  </div>
-
-  <!-- テンプレート設定 -->
-  <div class="drawer-section">
-    <div class="drawer-section-title">✉️ メールテンプレート</div>
-    <div class="d-form-group">
-      <label>宛先名</label>
-      <input type="text" id="tmpl-to" placeholder="例：〇〇さん">
-    </div>
-    <div class="d-form-group">
-      <label>CC名</label>
-      <input type="text" id="tmpl-cc" placeholder="例：××先生">
-    </div>
-    <div class="d-form-group">
-      <label>送信者名</label>
-      <input type="text" id="tmpl-sender" placeholder="例：〇〇">
-    </div>
-    <div class="d-form-group">
-      <label>学年</label>
-      <select id="tmpl-grade" style="padding:8px 10px;border:1.5px solid #2d3748;border-radius:6px;font-size:12px;font-family:inherit;background:#2d3748;color:#e2e8f0;width:100%;outline:none;">
-        <option value="">選択してください</option>
-        <option value="B4">B4</option>
-        <option value="M1">M1</option>
-        <option value="M2">M2</option>
-      </select>
-    </div>
-    <div class="d-form-group">
-      <label>用途説明</label>
-      <input type="text" id="tmpl-purpose" placeholder="例：実験で使用いたしますので">
-    </div>
-    <div class="d-form-group">
-      <label>署名</label>
-      <textarea id="tmpl-signature" placeholder="例：
-〇〇大学大学院
-△△研究科
-xx@example.ac.jp"></textarea>
-    </div>
-    <button class="btn-drawer-save" id="btn-save-template">💾 保存</button>
-    <span class="save-notice" id="save-notice">✓ 保存しました</span>
-  </div>
-
+<div class="bottom-bar" id="bottom-bar" aria-hidden="true">
+  <button class="bb-summary" id="bb-preview" tabindex="-1">
+    <strong id="bb-count">0点を選択中</strong>
+    <span>タップでプレビュー</span>
+  </button>
+  <button class="btn btn-primary" id="bb-copy" data-icon="copy" tabindex="-1"><span>コピー</span></button>
 </div>
 
-<!-- メイン -->
-<div class="container">
-  <div class="section">
-    <div class="section-title">🛒 発注する商品を選択 <span id="selected-badge" class="badge" style="display:none">0</span></div>
-    <div id="order-list"><div class="empty-state">右上のメニューから商品を追加してください</div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- 設定シート -->
+<div class="sheet-backdrop" id="sheet-backdrop"></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+  <div class="sheet-head">
+    <h2 id="sheet-title">設定</h2>
+    <button class="icon-btn ghost" id="close-settings" aria-label="閉じる" data-icon="x" data-size="22"></button>
   </div>
-  <div class="section">
-    <div class="section-title">✉️ メール文章</div>
-    <div class="mail-preview" id="mail-preview">← 商品を選択するとメール文章が自動生成されます</div>
-    <button class="btn-copy" id="copy-btn">📋 メール文章をコピー</button>
+  <div class="tabs" role="tablist">
+    <button role="tab" data-tab="products" aria-selected="true">商品</button>
+    <button role="tab" data-tab="mail" aria-selected="false">メール</button>
+    <button role="tab" data-tab="data" aria-selected="false">データ</button>
   </div>
-</div>
+  <div class="sheet-body">
+
+    <div data-panel="products">
+      <button class="btn btn-primary btn-block" id="add-product" data-icon="plus"><span>商品を追加</span></button>
+      <div id="manage-list"></div>
+    </div>
+
+    <div data-panel="mail" hidden>
+      <p class="panel-note">ここで設定した内容がメール文章に差し込まれます。入力すると自動で保存されます。</p>
+      <div class="field-row">
+        <div class="field">
+          <label for="tmpl-to">宛先名</label>
+          <input type="text" id="tmpl-to" data-tmpl="to" placeholder="例：〇〇さん">
+        </div>
+        <div class="field">
+          <label for="tmpl-cc">CC名</label>
+          <input type="text" id="tmpl-cc" data-tmpl="cc" placeholder="例：××先生">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="tmpl-sender">送信者名</label>
+          <input type="text" id="tmpl-sender" data-tmpl="sender" placeholder="例：〇〇">
+        </div>
+        <div class="field">
+          <label for="tmpl-grade">学年</label>
+          <select id="tmpl-grade" data-tmpl="grade">
+            <option value="">なし</option>
+            <option value="B4">B4</option>
+            <option value="M1">M1</option>
+            <option value="M2">M2</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="tmpl-purpose">用途説明</label>
+        <input type="text" id="tmpl-purpose" data-tmpl="purpose" placeholder="実験で使用いたしますので">
+      </div>
+      <div class="field">
+        <label for="tmpl-signature">署名（任意）</label>
+        <textarea id="tmpl-signature" data-tmpl="signature" placeholder="〇〇大学大学院&#10;△△研究科&#10;xx@example.ac.jp"></textarea>
+      </div>
+      <p class="saved-state" id="saved-state">自動保存</p>
+    </div>
+
+    <div data-panel="data" hidden>
+      <div class="list-card">
+        <div class="data-row">
+          <div class="body">
+            <strong>バックアップを書き出す</strong>
+            <p>商品リストとメール設定をファイルに保存します。機種変更や別のブラウザへの移行に。</p>
+          </div>
+          <button class="btn btn-ghost btn-sm" id="export-btn">書き出す</button>
+        </div>
+        <div class="data-row">
+          <div class="body">
+            <strong>バックアップを読み込む</strong>
+            <p>書き出したファイルから復元します。今のデータは置き換わります。</p>
+          </div>
+          <label class="btn btn-ghost btn-sm" for="import-file">読み込む</label>
+          <input type="file" id="import-file" accept="application/json,.json" hidden>
+        </div>
+        <div class="data-row">
+          <div class="body">
+            <strong>商品リストを初期状態に戻す</strong>
+            <p>追加・編集した商品を消して、標準の<span id="default-count"></span>品目に戻します。</p>
+          </div>
+          <button class="btn btn-danger btn-sm" id="reset-btn">戻す</button>
+        </div>
+      </div>
+      <p class="fine">データはこの端末のブラウザ内にだけ保存されます。別の端末で使うときはバックアップを書き出して読み込んでください。</p>
+    </div>
+
+  </div>
+</aside>
+
+<!-- 商品エディタ -->
+<dialog class="editor" id="editor" aria-labelledby="editor-title">
+  <form id="editor-form" novalidate>
+    <h2 id="editor-title">商品を追加</h2>
+    <div class="field">
+      <label for="ed-name">商品名<span class="req">*</span></label>
+      <input type="text" id="ed-name" required autocomplete="off">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="ed-code">注文コード<span class="req">*</span></label>
+        <input type="text" id="ed-code" required autocomplete="off" inputmode="text">
+      </div>
+      <div class="field">
+        <label for="ed-vol">内容量</label>
+        <input type="text" id="ed-vol" autocomplete="off" placeholder="例：1箱(100枚)">
+      </div>
+    </div>
+    <div class="field">
+      <label for="ed-url">商品ページURL</label>
+      <input type="url" id="ed-url" autocomplete="off" inputmode="url" placeholder="https://www.monotaro.com/p/…">
+    </div>
+    <div class="field">
+      <label for="ed-cat">カテゴリ</label>
+      <input type="text" id="ed-cat" list="cat-options" autocomplete="off" placeholder="例：ラボ消耗品">
+      <datalist id="cat-options"></datalist>
+    </div>
+    <div class="dialog-actions">
+      <button type="button" class="btn btn-danger" id="ed-delete">削除</button>
+      <span class="spacer"></span>
+      <button type="button" class="btn btn-ghost" id="ed-cancel">キャンセル</button>
+      <button type="submit" class="btn btn-primary">保存</button>
+    </div>
+  </form>
+</dialog>
 
 <script>
-  const DEFAULT_PRODUCTS = [
-    { id:"1", name:"クアラテック手袋（DXパウダーフリー）M", code:"09890797", vol:"1ケース（100枚×10箱）", url:"https://www.monotaro.com/p/0989/0797/" },
-    { id:"2", name:"GILSON ダイアモンドチップ D1000 EasyPack 未滅菌 F161671", code:"09170822", vol:"200本×5袋", url:"https://www.monotaro.com/p/0917/0822/" },
-    { id:"3", name:"日本製紙クレシア キムタオル", code:"33237217", vol:"1箱（150枚）", url:"https://www.monotaro.com/p/3323/7217/" },
-    { id:"4", name:"エッペンドルフ 5mLチューブ（通常・ナチュラル）", code:"24533583", vol:"200本入", url:"https://www.monotaro.com/p/2453/3583/" },
-    { id:"5", name:"ポリイミドテープ 絶縁 耐熱", code:"56388508", vol:"1巻", url:"https://www.monotaro.com/p/5638/8508/" },
-    { id:"6", name:"富士フイルム和光純薬 エタノール (99.5) 500mL", code:"057-00456", vol:"500mL", url:"https://labchem-wako.fujifilm.com/jp/product/detail/W01W0105-0045.html" }
-  ];
+(() => {
+  'use strict';
 
-  const DEFAULT_TEMPLATE = {
-    to: "", cc: "", sender: "", grade: "", purpose: "実験で使用いたしますので",
-    signature: ""
+  // ===== 標準の商品リスト（実際の発注実績より） =====
+  const DEFAULT_PRODUCTS = [
+    { id: '1',  category: 'ラボ消耗品', name: 'クアラテック手袋（DXパウダーフリー）M', code: '09890797', vol: '1ケース（100枚×10箱）', url: 'https://www.monotaro.com/p/0989/0797/' },
+    { id: '2',  category: 'ラボ消耗品', name: 'GILSON ダイアモンドチップ D1000 EasyPack 未滅菌 F161671', code: '09170822', vol: '200本×5袋', url: 'https://www.monotaro.com/p/0917/0822/' },
+    { id: '3',  category: 'ラボ消耗品', name: '日本製紙クレシア キムタオル', code: '33237217', vol: '1箱（150枚）', url: 'https://www.monotaro.com/p/3323/7217/' },
+    { id: '4',  category: 'ラボ消耗品', name: 'エッペンドルフ 5mLチューブ（通常・ナチュラル）', code: '24533583', vol: '200本入', url: 'https://www.monotaro.com/p/2453/3583/' },
+    { id: '5',  category: 'ラボ消耗品', name: 'ポリイミドテープ 絶縁 耐熱', code: '56388508', vol: '1巻', url: 'https://www.monotaro.com/p/5638/8508/' },
+    { id: '6',  category: '試薬',       name: '富士フイルム和光純薬 エタノール (99.5) 500mL', code: '057-00456', vol: '500mL', url: 'https://labchem-wako.fujifilm.com/jp/product/detail/W01W0105-0045.html' },
+    { id: '7',  category: 'ラボ消耗品', name: 'エッペンドルフ　0.5 mLチューブ', code: '35586101', vol: '1箱(500本)', url: 'https://www.monotaro.com/p/3558/6101/' },
+    { id: '8',  category: '日用品',     name: 'エアダスター（3本セット）', code: '75905392', vol: '1セット(350mL×3本)', url: 'https://www.monotaro.com/p/7590/5392/' },
+    { id: '9',  category: '日用品',     name: '中性洗剤', code: '89859725', vol: '1本(600mL)', url: 'https://www.monotaro.com/p/8985/9725/' },
+    { id: '10', category: 'ラボ消耗品', name: 'クアラテック手袋（DXパウダーフリー）S', code: '09890745', vol: '1箱(100枚)', url: 'https://www.monotaro.com/p/0989/0745/' },
+    { id: '11', category: '日用品',     name: 'キレイキレイ　薬用泡ハンドソープ', code: '07322506', vol: '1個(250mL)', url: 'https://www.monotaro.com/p/0732/2506/' },
+    { id: '12', category: '日用品',     name: '激落ちくん粉末クエン酸', code: '12829768', vol: '1個(300g)', url: 'https://www.monotaro.com/p/1282/9768/' },
+    { id: '13', category: '日用品',     name: 'アルカリ乾電池 単4', code: '34911177', vol: '1箱(40本)', url: 'https://www.monotaro.com/p/3491/1177/' },
+    { id: '14', category: 'ラボ消耗品', name: '15mL チューブ', code: '35589443', vol: '1ケース(50本)', url: 'https://www.monotaro.com/p/3558/9443/' },
+  ];
+  const CATALOG_VERSION = 2;
+  const UNCATEGORIZED = 'その他';
+
+  const DEFAULT_TEMPLATE = { to: '', cc: '', sender: '', grade: '', purpose: '実験で使用いたしますので', signature: '' };
+
+  const KEY = {
+    products: 'ogizon-products',
+    template: 'ogizon-template',
+    version: 'ogizon-catalog-version',
+    selection: 'ogizon-selection',
+    lastOrder: 'ogizon-last-order',
   };
 
-  let products = JSON.parse(localStorage.getItem('ogizon-products') || 'null') || DEFAULT_PRODUCTS;
-  let tmpl = JSON.parse(localStorage.getItem('ogizon-template') || 'null') || DEFAULT_TEMPLATE;
-  let selections = {};
+  // ===== Storage =====
+  const store = {
+    get(k, fallback) {
+      try { const v = localStorage.getItem(k); return v == null ? fallback : JSON.parse(v); }
+      catch { return fallback; }
+    },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
+  };
+  const clone = (o) => JSON.parse(JSON.stringify(o));
 
-  function saveProducts() { localStorage.setItem('ogizon-products', JSON.stringify(products)); }
-  function saveTmplData() { localStorage.setItem('ogizon-template', JSON.stringify(tmpl)); }
-
-  // ===== ドロワー =====
-  function toggleDrawer() {
-    const open = document.getElementById('drawer').classList.toggle('open');
-    document.getElementById('drawer-overlay').classList.toggle('open', open);
-    document.getElementById('hamburger').classList.toggle('open', open);
-    if (open) renderDrawerProducts(), renderTemplateForm();
-  }
-  function closeDrawer() {
-    document.getElementById('drawer').classList.remove('open');
-    document.getElementById('drawer-overlay').classList.remove('open');
-    document.getElementById('hamburger').classList.remove('open');
-  }
-
-  // ===== 商品管理 =====
-  function addProduct() {
-    const name = document.getElementById('inp-name').value.trim();
-    const code = document.getElementById('inp-code').value.trim();
-    const vol  = document.getElementById('inp-vol').value.trim();
-    const url  = document.getElementById('inp-url').value.trim();
-    if (!name || !code) { alert('商品名と注文コードは必須です'); return; }
-    products.push({ id: Date.now().toString(), name, code, vol, url });
-    saveProducts();
-    ['inp-name','inp-code','inp-vol','inp-url'].forEach(id => document.getElementById(id).value = '');
-    renderDrawerProducts();
-    renderOrderList();
+  function loadProducts() {
+    const stored = store.get(KEY.products, null);
+    if (!Array.isArray(stored)) return clone(DEFAULT_PRODUCTS);
+    const version = Number(store.get(KEY.version, 1)) || 1;
+    if (version < CATALOG_VERSION) {
+      // 既存ユーザー: 自分で追加した商品は残したまま、新しい標準商品を足す
+      const byCode = new Map(DEFAULT_PRODUCTS.map(d => [d.code, d]));
+      const ids = new Set(stored.map(p => p.id));
+      const codes = new Set(stored.map(p => p.code));
+      stored.forEach(p => { const d = byCode.get(p.code); if (d && !p.category) p.category = d.category; });
+      DEFAULT_PRODUCTS.forEach(d => {
+        if (codes.has(d.code)) return;
+        const p = clone(d);
+        if (ids.has(p.id)) p.id = uid();
+        ids.add(p.id);
+        stored.push(p);
+      });
+    }
+    return stored;
   }
 
-  function deleteProduct(id) {
-    if (!confirm('この商品を削除しますか？')) return;
-    products = products.filter(p => p.id !== id);
-    delete selections[id];
-    saveProducts();
-    renderDrawerProducts();
-    renderOrderList();
-    renderMail();
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+
+  let products = loadProducts();
+  let tmpl = Object.assign({}, DEFAULT_TEMPLATE, store.get(KEY.template, {}) || {});
+  let selections = store.get(KEY.selection, {}) || {};
+  let lastOrder = store.get(KEY.lastOrder, null);
+  let query = '';
+
+  const saveProducts = () => { store.set(KEY.products, products); store.set(KEY.version, CATALOG_VERSION); };
+  const saveTemplate = () => store.set(KEY.template, tmpl);
+  const saveSelection = () => store.set(KEY.selection, selections);
+
+  saveProducts();
+  pruneSelection();
+
+  function pruneSelection() {
+    const ids = new Set(products.map(p => p.id));
+    for (const id of Object.keys(selections)) {
+      const n = parseInt(selections[id], 10);
+      if (!ids.has(id) || !(n > 0)) delete selections[id];
+      else selections[id] = n;
+    }
+    saveSelection();
   }
 
-  function renderDrawerProducts() {
-    const el = document.getElementById('drawer-product-list');
-    if (products.length === 0) {
-      el.innerHTML = '<div style="color:#4a5568;font-size:12px;text-align:center;padding:12px">商品がありません</div>';
+  // ===== Helpers =====
+  const $ = (s, root = document) => root.querySelector(s);
+  const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+  const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const norm = (s) => String(s ?? '').normalize('NFKC').toLowerCase()
+    .replace(/[ぁ-ゖ]/g, c => String.fromCharCode(c.charCodeAt(0) + 0x60))
+    .replace(/\s+/g, '');
+  const catOf = (p) => (p.category || '').trim() || UNCATEGORIZED;
+  const pad = (n) => String(n).padStart(2, '0');
+  const today = () => { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; };
+  function fmtDate(iso) {
+    if (!iso) return '';
+    const [y, m, d] = iso.split('-').map(Number);
+    return y === new Date().getFullYear() ? `${m}/${d}` : `${y}/${m}/${d}`;
+  }
+
+  const ICONS = {
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
+    settings: '<path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/>',
+    copy: '<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
+    x: '<path d="M18 6L6 18M6 6l12 12"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    minus: '<path d="M5 12h14"/>',
+    history: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
+    external: '<path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
+    chevron: '<path d="M9 6l6 6-6 6"/>',
+    box: '<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/>',
+    alert: '<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>',
+  };
+  const ic = (name, size = 18, sw = 2) =>
+    `<svg class="ic" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name] || ''}</svg>`;
+  $$('[data-icon]').forEach(el => el.insertAdjacentHTML('afterbegin', ic(el.dataset.icon, Number(el.dataset.size) || 18)));
+
+  let toastTimer;
+  function toast(msg, type = 'ok') {
+    const el = $('#toast');
+    el.className = 'toast' + (type === 'error' ? ' error' : '');
+    el.innerHTML = ic(type === 'error' ? 'alert' : 'check', 18, 2.5) + `<span>${esc(msg)}</span>`;
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+  }
+
+  // 2回タップで確定するボタン（誤操作防止）
+  function armedAction(btn, armedLabel, action) {
+    if (btn.classList.contains('armed')) {
+      clearTimeout(btn._armTimer);
+      btn.classList.remove('armed');
+      btn.textContent = btn._label;
+      action();
       return;
     }
-    el.innerHTML = products.map(p => `
-      <div class="drawer-product-item">
-        <div>
-          <div class="drawer-product-name">${esc(p.name)}</div>
-          <div class="drawer-product-code">${esc(p.code)}</div>
-        </div>
-        <button class="btn-del" data-del-id="${p.id}">削除</button>
+    btn._label = btn.textContent;
+    btn.classList.add('armed');
+    btn.textContent = armedLabel;
+    btn._armTimer = setTimeout(() => { btn.classList.remove('armed'); btn.textContent = btn._label; }, 3000);
+  }
+
+  // カテゴリ順 = リスト内で最初に登場した順
+  function grouped(list) {
+    const map = new Map();
+    for (const p of list) {
+      const c = catOf(p);
+      if (!map.has(c)) map.set(c, []);
+      map.get(c).push(p);
+    }
+    const order = [...new Set(products.map(catOf))];
+    return [...map.entries()].sort((a, b) => {
+      if (a[0] === UNCATEGORIZED) return 1;
+      if (b[0] === UNCATEGORIZED) return -1;
+      return order.indexOf(a[0]) - order.indexOf(b[0]);
+    });
+  }
+  const orderedSelected = () => grouped(products).flatMap(([, items]) => items).filter(p => selections[p.id]);
+
+  // ===== Catalog =====
+  function renderCatalog() {
+    const el = $('#catalog-list');
+    $('#catalog-count').textContent = `${products.length}品目`;
+
+    if (!products.length) {
+      el.innerHTML = `<div class="empty">${ic('box', 36, 1.6)}<div>商品がまだありません</div>
+        <button class="btn btn-primary btn-sm" data-action="add">${ic('plus', 16)}<span>商品を追加</span></button></div>`;
+      return;
+    }
+
+    const q = norm(query);
+    const visible = q ? products.filter(p => norm(`${p.name} ${p.code} ${p.vol} ${catOf(p)}`).includes(q)) : products;
+    if (!visible.length) {
+      el.innerHTML = `<div class="empty">${ic('search', 32, 1.6)}<div>「${esc(query)}」に一致する商品はありません</div></div>`;
+      return;
+    }
+
+    el.innerHTML = grouped(visible).map(([cat, items]) => `
+      <div class="group">
+        <div class="group-head">${esc(cat)}<span class="n">${items.length}</span></div>
+        ${items.map(itemHTML).join('')}
       </div>`).join('');
   }
 
-  document.getElementById('drawer-product-list').addEventListener('click', function(e) {
-    const btn = e.target.closest('[data-del-id]');
-    if (btn) deleteProduct(btn.dataset.delId);
-  });
+  function itemHTML(p) {
+    const qty = selections[p.id];
+    const sel = !!qty;
+    const meta = [
+      `<span class="mono">${esc(p.code)}</span>`,
+      p.vol ? `<span>${esc(p.vol)}</span>` : '',
+      p.lastOrdered ? `<span class="meta-last" title="前回コピーした日">${ic('history', 12)}${esc(fmtDate(p.lastOrdered))}</span>` : '',
+      p.url ? `<a class="meta-link" href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">商品ページ${ic('external', 11)}</a>` : '',
+    ].join('');
+    return `
+      <div class="item${sel ? ' is-selected' : ''}" data-id="${esc(p.id)}" role="checkbox" aria-checked="${sel}" tabindex="0">
+        <span class="check">${ic('check', 14, 3)}</span>
+        <div class="item-body">
+          <div class="item-name">${esc(p.name)}</div>
+          <div class="item-meta">${meta}</div>
+        </div>
+        ${sel ? stepperHTML(p.id, qty) : ''}
+      </div>`;
+  }
 
-  // ===== 発注選択 =====
-  function toggleSelect(id, checked) {
-    if (checked) selections[id] = selections[id] || 1;
-    else delete selections[id];
-    renderOrderList();
-    renderMail();
+  function stepperHTML(id, qty) {
+    return `<div class="stepper">
+      <button type="button" data-step="-1" aria-label="1つ減らす" ${qty <= 1 ? 'disabled' : ''}>${ic('minus', 16, 2.4)}</button>
+      <input type="text" inputmode="numeric" pattern="[0-9]*" value="${qty}" data-qty aria-label="個数">
+      <button type="button" data-step="1" aria-label="1つ増やす">${ic('plus', 16, 2.4)}</button>
+    </div>`;
   }
-  function changeQty(id, delta) {
-    if (!selections[id]) return;
-    selections[id] = Math.max(1, selections[id] + delta);
-    document.getElementById('qty-' + id).value = selections[id];
-    renderMail();
+
+  function toggleItem(itemEl) {
+    const id = itemEl.dataset.id;
+    if (selections[id]) delete selections[id];
+    else selections[id] = 1;
+    const p = products.find(x => x.id === id);
+    itemEl.outerHTML = itemHTML(p);
+    updateSummary();
   }
-  function setQty(id, val) {
-    const n = parseInt(val);
-    if (!isNaN(n) && n > 0) { selections[id] = n; renderMail(); }
+
+  function setQty(itemEl, n, { writeInput = true } = {}) {
+    const id = itemEl.dataset.id;
+    n = Math.max(1, Math.min(999, n));
+    selections[id] = n;
+    const input = $('[data-qty]', itemEl);
+    if (writeInput && input) input.value = n;
+    const minus = $('[data-step="-1"]', itemEl);
+    if (minus) minus.disabled = n <= 1;
+    updateSummary();
   }
-  function updateBadge() {
-    const count = Object.keys(selections).length;
-    const badge = document.getElementById('selected-badge');
-    badge.textContent = count;
-    badge.style.display = count > 0 ? 'inline-block' : 'none';
-  }
-  function renderOrderList() {
-    const el = document.getElementById('order-list');
-    if (products.length === 0) {
-      el.innerHTML = '<div class="empty-state">右上のメニューから商品を追加してください</div>'; return;
+
+  const list = $('#catalog-list');
+  list.addEventListener('click', (e) => {
+    if (e.target.closest('[data-action="add"]')) { openEditor(); return; }
+    if (e.target.closest('a')) return;
+    const itemEl = e.target.closest('.item');
+    if (!itemEl) return;
+    const step = e.target.closest('[data-step]');
+    if (step) { setQty(itemEl, (selections[itemEl.dataset.id] || 1) + Number(step.dataset.step)); return; }
+    if (e.target.closest('.stepper')) return;
+    toggleItem(itemEl);
+  });
+  list.addEventListener('keydown', (e) => {
+    if (e.target.matches('.item') && (e.key === ' ' || e.key === 'Enter')) {
+      e.preventDefault();
+      const id = e.target.dataset.id;
+      toggleItem(e.target);
+      $(`.item[data-id="${CSS.escape(id)}"]`)?.focus();
     }
-    el.innerHTML = products.map(p => {
-      const checked = !!selections[p.id];
-      const qty = selections[p.id] || 1;
-      return `
-        <div class="order-row">
-          <input type="checkbox" class="order-check" data-check-id="${p.id}" ${checked ? 'checked' : ''}>
-          <div class="order-name">${esc(p.name)}</div>
-          <div class="order-code">${esc(p.code)}</div>
-          <div class="order-qty ${checked ? '' : 'qty-disabled'}">
-            <button class="qty-btn" data-qty-id="${p.id}" data-delta="-1">−</button>
-            <input id="qty-${p.id}" class="qty-input" type="number" min="1" value="${qty}" data-qty-input="${p.id}">
-            <button class="qty-btn" data-qty-id="${p.id}" data-delta="1">＋</button>
-          </div>
-        </div>`;
-    }).join('');
-    updateBadge();
-  }
+  });
+  list.addEventListener('input', (e) => {
+    if (!e.target.matches('[data-qty]')) return;
+    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    const n = parseInt(e.target.value, 10);
+    if (n > 0) setQty(e.target.closest('.item'), n, { writeInput: false });
+  });
+  list.addEventListener('focusout', (e) => {
+    if (!e.target.matches('[data-qty]')) return;
+    const itemEl = e.target.closest('.item');
+    if (itemEl) e.target.value = selections[itemEl.dataset.id] || 1;
+  });
+  list.addEventListener('focusin', (e) => { if (e.target.matches('[data-qty]')) e.target.select(); });
 
-  document.getElementById('order-list').addEventListener('change', function(e) {
-    const id = e.target.dataset.checkId;
-    if (id) toggleSelect(id, e.target.checked);
-    const qid = e.target.dataset.qtyInput;
-    if (qid) setQty(qid, e.target.value);
+  $('#search').addEventListener('input', (e) => { query = e.target.value; renderCatalog(); });
+
+  $('#clear-sel').addEventListener('click', () => {
+    selections = {};
+    renderCatalog(); updateSummary();
+    toast('選択を解除しました');
   });
 
-  function handleQtyClick(e) {
-    const btn = e.target.closest('[data-qty-id]');
-    if (!btn) return;
-    e.preventDefault();
-    changeQty(btn.dataset.qtyId, parseInt(btn.dataset.delta));
+  $('#repeat-last').addEventListener('click', () => {
+    if (!lastOrder) return;
+    const ids = new Set(products.map(p => p.id));
+    selections = {};
+    for (const [id, qty] of lastOrder.items) if (ids.has(id)) selections[id] = qty;
+    query = ''; $('#search').value = '';
+    renderCatalog(); updateSummary();
+    toast(`前回（${fmtDate(lastOrder.date)}）と同じ${Object.keys(selections).length}点を選択しました`);
+  });
+
+  // ===== Summary / mail =====
+  function updateSummary() {
+    saveSelection();
+    const count = Object.keys(selections).length;
+    const pill = $('#mail-count');
+    pill.textContent = `${count}点`;
+    pill.classList.toggle('on', count > 0);
+    $('#bb-count').textContent = `${count}点を選択中`;
+    $('#copy-btn').disabled = count === 0;
+    $('#bb-copy').disabled = count === 0;
+    $('#clear-sel').hidden = count === 0;
+    $('#repeat-last').hidden = !lastOrder || count > 0;
+    updateBottomBar();
+    renderMail();
   }
 
-  document.getElementById('order-list').addEventListener('click', handleQtyClick);
-  document.getElementById('order-list').addEventListener('touchend', handleQtyClick);
-
-  // ===== メール生成 =====
   function buildMail() {
-    const selected = products.filter(p => selections[p.id]);
-    if (selected.length === 0) return null;
+    const selected = orderedSelected();
+    if (!selected.length) return null;
     const items = selected.map(p => {
-      const qty = selections[p.id];
       let block = `・${p.name}\n\n注文コード：${p.code}`;
       if (p.vol) block += `\n\n内容量：${p.vol}`;
-      block += `\n\n個数：${qty}個`;
+      block += `\n\n個数：${selections[p.id]}個`;
       if (p.url) block += `\n\n${p.url}`;
       return block;
     }).join('\n\n\n');
     const to = tmpl.to || '（宛先）';
     const cc = tmpl.cc || '（CC）';
     const name = tmpl.sender || '（名前）';
-    const grade = tmpl.grade || '';
-    const gradeLabel = grade ? `${grade} ` : '';
-    const senderFull = `${gradeLabel}${name}`;
-    const purpose = tmpl.purpose || '実験で使用いたしますので';
+    const senderFull = `${tmpl.grade ? tmpl.grade + ' ' : ''}${name}`;
+    const purpose = tmpl.purpose || DEFAULT_TEMPLATE.purpose;
     const sig = tmpl.signature ? `--\n${tmpl.signature}` : '';
     return `${to}\nCc ${cc}\n\nお世話になっております。${senderFull}です。\n${purpose}、以下の備品の購入をお願いいたします。\n\n${items}\n\n以上，よろしくお願いいたします．\n${name}\n${sig}`;
   }
+
   function renderMail() {
-    document.getElementById('mail-preview').textContent = buildMail() || '← 商品を選択するとメール文章が自動生成されます';
-  }
-  function copyMail() {
+    const el = $('#mail-preview');
     const mail = buildMail();
-    if (!mail) return;
-    navigator.clipboard.writeText(mail).then(() => {
-      const btn = document.getElementById('copy-btn');
-      btn.textContent = '✅ コピーしました！';
-      btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = '📋 メール文章をコピー'; btn.classList.remove('copied'); }, 2000);
-    }).catch(() => alert('コピーできませんでした。手動で選択してコピーしてください。'));
+    el.classList.toggle('is-empty', !mail);
+    el.textContent = mail || '商品を選ぶと、ここに\nメール文章ができあがります';
+    const missing = [!tmpl.to && '宛先', !tmpl.sender && '名前'].filter(Boolean);
+    $('#setup-hint').hidden = !missing.length;
+    $('#setup-hint-text').textContent = `${missing.join('と')}がまだ設定されていません`;
   }
 
-  // ===== テンプレート =====
-  function renderTemplateForm() {
-    document.getElementById('tmpl-to').value = tmpl.to;
-    document.getElementById('tmpl-cc').value = tmpl.cc;
-    document.getElementById('tmpl-sender').value = tmpl.sender;
-    document.getElementById('tmpl-grade').value = tmpl.grade || '';
-    document.getElementById('tmpl-purpose').value = tmpl.purpose;
-    document.getElementById('tmpl-signature').value = tmpl.signature;
-  }
-  function saveTemplate() {
-    tmpl.to = document.getElementById('tmpl-to').value.trim();
-    tmpl.cc = document.getElementById('tmpl-cc').value.trim();
-    tmpl.sender = document.getElementById('tmpl-sender').value.trim();
-    tmpl.grade = document.getElementById('tmpl-grade').value;
-    tmpl.purpose = document.getElementById('tmpl-purpose').value.trim();
-    tmpl.signature = document.getElementById('tmpl-signature').value.trim();
-    saveTmplData(); renderMail();
-    const n = document.getElementById('save-notice');
-    n.classList.add('show');
-    setTimeout(() => n.classList.remove('show'), 2000);
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+    document.body.appendChild(ta);
+    ta.select(); ta.setSelectionRange(0, text.length);
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch { ok = false; }
+    ta.remove();
+    return ok;
   }
 
-  function esc(str) {
-    return (str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  async function copyMail() {
+    const text = buildMail();
+    if (!text) return;
+    let ok = false;
+    try { await navigator.clipboard.writeText(text); ok = true; } catch { ok = fallbackCopy(text); }
+    if (!ok) { toast('コピーできませんでした。プレビューを長押ししてコピーしてください', 'error'); return; }
+
+    const date = today();
+    lastOrder = { date, items: Object.entries(selections) };
+    store.set(KEY.lastOrder, lastOrder);
+    for (const p of products) if (selections[p.id]) p.lastOrdered = date;
+    saveProducts();
+    renderCatalog();
+
+    for (const btn of [$('#copy-btn'), $('#bb-copy')]) {
+      const label = $('span', btn);
+      if (!btn._orig) btn._orig = label.textContent;
+      label.textContent = btn.id === 'bb-copy' ? '完了' : 'コピーしました';
+      btn.classList.add('is-done');
+      clearTimeout(btn._t);
+      btn._t = setTimeout(() => { label.textContent = btn._orig; btn.classList.remove('is-done'); }, 1800);
+    }
+    toast('メール文章をコピーしました');
   }
 
-  // ===== イベントリスナー（onclick属性の代替） =====
-  document.getElementById('hamburger').addEventListener('click', toggleDrawer);
-  document.getElementById('drawer-overlay').addEventListener('click', closeDrawer);
-  document.getElementById('btn-add-product').addEventListener('click', addProduct);
-  document.getElementById('btn-save-template').addEventListener('click', saveTemplate);
-  document.getElementById('copy-btn').addEventListener('click', copyMail);
+  $('#copy-btn').addEventListener('click', copyMail);
+  $('#bb-copy').addEventListener('click', copyMail);
+  $('#bb-preview').addEventListener('click', () => $('#mail-card').scrollIntoView({ behavior: 'smooth', block: 'start' }));
 
-  renderOrderList();
-  renderMail();
+  // メール欄が見えているときは下部バーを隠す
+  let mailInView = false;
+  function updateBottomBar() {
+    const show = Object.keys(selections).length > 0 && !mailInView;
+    const bar = $('#bottom-bar');
+    bar.classList.toggle('show', show);
+    bar.setAttribute('aria-hidden', String(!show));
+    $$('button', bar).forEach(b => b.tabIndex = show ? 0 : -1);
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => { mailInView = entry.isIntersecting; updateBottomBar(); })
+      .observe($('#copy-btn'));
+  }
+
+  // ===== Settings sheet =====
+  const sheet = $('#sheet');
+  let lastFocus = null;
+  function openSettings(tab = 'products') {
+    lastFocus = document.activeElement;
+    selectTab(tab);
+    renderManageList();
+    fillTemplateForm();
+    sheet.classList.add('open');
+    $('#sheet-backdrop').classList.add('open');
+    document.body.classList.add('no-scroll');
+    setTimeout(() => $('#close-settings').focus(), 50);
+  }
+  function closeSettings() {
+    sheet.classList.remove('open');
+    $('#sheet-backdrop').classList.remove('open');
+    document.body.classList.remove('no-scroll');
+    lastFocus?.focus?.();
+  }
+  function selectTab(tab) {
+    $$('.tabs [role="tab"]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
+    $$('[data-panel]').forEach(p => { p.hidden = p.dataset.panel !== tab; });
+    $('.sheet-body').scrollTop = 0;
+  }
+  $('#open-settings').addEventListener('click', () => openSettings());
+  $('#close-settings').addEventListener('click', closeSettings);
+  $('#sheet-backdrop').addEventListener('click', closeSettings);
+  $$('.tabs [role="tab"]').forEach(b => b.addEventListener('click', () => selectTab(b.dataset.tab)));
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-open-tab]');
+    if (t) openSettings(t.dataset.openTab);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sheet.classList.contains('open') && !$('#editor').open) closeSettings();
+  });
+
+  function renderManageList() {
+    const el = $('#manage-list');
+    if (!products.length) { el.innerHTML = `<p class="fine" style="text-align:center;margin-top:20px">商品がありません</p>`; return; }
+    el.innerHTML = grouped(products).map(([cat, items]) => `
+      <div class="list-label">${esc(cat)}</div>
+      <div class="list-card">
+        ${items.map(p => `
+          <button class="manage-item" data-edit="${esc(p.id)}">
+            <div class="body">
+              <div class="name">${esc(p.name)}</div>
+              <div class="sub"><span class="mono">${esc(p.code)}</span>${p.vol ? ` · ${esc(p.vol)}` : ''}</div>
+            </div>
+            ${ic('chevron', 18)}
+          </button>`).join('')}
+      </div>`).join('');
+  }
+  $('#manage-list').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-edit]');
+    if (b) openEditor(b.dataset.edit);
+  });
+  $('#add-product').addEventListener('click', () => openEditor());
+
+  // ===== Template form =====
+  function fillTemplateForm() {
+    $$('[data-tmpl]').forEach(el => { el.value = tmpl[el.dataset.tmpl] || ''; });
+  }
+  let savedTimer;
+  $$('[data-tmpl]').forEach(el => el.addEventListener('input', () => {
+    tmpl[el.dataset.tmpl] = el.value.trim();
+    saveTemplate(); renderMail();
+    const s = $('#saved-state');
+    s.textContent = '保存しました'; s.classList.add('flash');
+    clearTimeout(savedTimer);
+    savedTimer = setTimeout(() => { s.textContent = '自動保存'; s.classList.remove('flash'); }, 1400);
+  }));
+
+  // ===== Editor =====
+  const editor = $('#editor');
+  const ed = { name: $('#ed-name'), code: $('#ed-code'), vol: $('#ed-vol'), url: $('#ed-url'), category: $('#ed-cat') };
+  let editingId = null;
+
+  function openEditor(id = null) {
+    editingId = id;
+    const p = id ? products.find(x => x.id === id) : null;
+    $('#editor-title').textContent = p ? '商品を編集' : '商品を追加';
+    for (const k of Object.keys(ed)) { ed[k].value = p ? (p[k] || '') : ''; ed[k].setCustomValidity(''); }
+    $('#cat-options').innerHTML = [...new Set(products.map(x => (x.category || '').trim()).filter(Boolean))]
+      .map(c => `<option value="${esc(c)}">`).join('');
+    const del = $('#ed-delete');
+    del.hidden = !p;
+    del.classList.remove('armed'); del.textContent = '削除'; clearTimeout(del._armTimer);
+    editor.showModal();
+    if (!p) ed.name.focus();
+  }
+
+  $('#ed-cancel').addEventListener('click', () => editor.close());
+  editor.addEventListener('click', (e) => { if (e.target === editor) editor.close(); });
+
+  $('#editor-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const v = Object.fromEntries(Object.entries(ed).map(([k, el]) => [k, el.value.trim()]));
+    ed.name.setCustomValidity(v.name ? '' : '商品名を入力してください');
+    const dup = products.find(p => p.code === v.code && p.id !== editingId);
+    ed.code.setCustomValidity(!v.code ? '注文コードを入力してください' : dup ? `「${dup.name}」と同じ注文コードです` : '');
+    if (!e.target.reportValidity()) return;
+
+    if (editingId) {
+      Object.assign(products.find(p => p.id === editingId), v);
+      toast('商品を更新しました');
+    } else {
+      products.push({ id: uid(), ...v });
+      toast('商品を追加しました');
+    }
+    saveProducts();
+    editor.close();
+    renderManageList(); renderCatalog(); updateSummary();
+  });
+  Object.values(ed).forEach(el => el.addEventListener('input', () => el.setCustomValidity('')));
+
+  $('#ed-delete').addEventListener('click', (e) => {
+    armedAction(e.currentTarget, 'もう一度タップで削除', () => {
+      const p = products.find(x => x.id === editingId);
+      products = products.filter(x => x.id !== editingId);
+      delete selections[editingId];
+      saveProducts();
+      editor.close();
+      renderManageList(); renderCatalog(); updateSummary();
+      toast(`「${p?.name ?? '商品'}」を削除しました`);
+    });
+  });
+
+  // ===== Data =====
+  $('#default-count').textContent = DEFAULT_PRODUCTS.length;
+
+  $('#export-btn').addEventListener('click', () => {
+    const data = { app: 'ogizon', version: CATALOG_VERSION, exportedAt: new Date().toISOString(), products, template: tmpl };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `ogizon-backup-${today()}.json`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    toast('バックアップを書き出しました');
+  });
+
+  $('#import-file').addEventListener('change', async (e) => {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    try {
+      const data = JSON.parse(await file.text());
+      const list = Array.isArray(data) ? data : data.products;
+      if (!Array.isArray(list) || !list.every(p => p && typeof p.name === 'string' && p.code != null)) throw new Error('bad');
+      products = list.map(p => ({
+        id: String(p.id ?? uid()), name: p.name, code: String(p.code),
+        vol: p.vol || '', url: p.url || '', category: p.category || '',
+        ...(p.lastOrdered ? { lastOrdered: p.lastOrdered } : {}),
+      }));
+      if (data.template && typeof data.template === 'object') {
+        tmpl = Object.assign({}, DEFAULT_TEMPLATE, data.template);
+        saveTemplate(); fillTemplateForm();
+      }
+      saveProducts(); pruneSelection();
+      renderManageList(); renderCatalog(); updateSummary();
+      toast(`${products.length}品目を読み込みました`);
+    } catch {
+      toast('読み込めませんでした。Ogizonのバックアップファイルを選んでください', 'error');
+    }
+  });
+
+  $('#reset-btn').addEventListener('click', (e) => {
+    armedAction(e.currentTarget, '本当に戻す', () => {
+      products = clone(DEFAULT_PRODUCTS);
+      saveProducts(); pruneSelection();
+      renderManageList(); renderCatalog(); updateSummary();
+      toast('標準の商品リストに戻しました');
+    });
+  });
+
+  // ===== Init =====
+  renderCatalog();
+  updateSummary();
+})();
 </script>
 </body>
 </html>
